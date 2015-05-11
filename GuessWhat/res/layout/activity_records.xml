@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".RecordsActivity">
+
+    <ImageView
+        android:src="@drawable/background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/background" />
+
+    <LinearLayout
+        android:id="@+id/out"
+        android:weightSum="60"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ListView
+            android:id="@+id/lstRecords"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:divider="@null"
+            android:dividerHeight="4dp"
+            android:layout_weight="50"
+            android:listSelector="@android:color/transparent"
+            android:background="@android:color/transparent"
+            android:cacheColorHint="@android:color/transparent"/>
+
+        <!-- Here is the view to show if the list is emtpy -->
+        <TextView android:id="@+id/empty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
