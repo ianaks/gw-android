@@ -1,4 +1,4 @@
-package com.guesswhat.android.view;
+package com.guesswhat.android;
 
 import com.guesswhat.android.R;
 

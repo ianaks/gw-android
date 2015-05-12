@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity" >
+
+    <ImageView
+        android:id="@+id/Splash_Background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="6" >
+        
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="4" >
+        
+    	</LinearLayout>
+    	
+       	<TableLayout
+       	    android:layout_width="fill_parent"
+       	    android:layout_height="0dip"
+       	    android:layout_gravity="center"
+       	    android:layout_weight="2" >
+
+       	    <TableRow
+       	        android:layout_width="fill_parent"
+       	        android:gravity="center"
+       	        android:lay>
+       	        <TextView 
+       	            android:layout_width="fill_parent"
+       	            android:text="tttt"/>"
+       	    </TableRow>
+       	    <TableRow 
+       	        android:layout_width="fill_parent"
+       	        android:gravity="center">
+       	        <TextView 
+       	            android:layout_width="fill_parent"
+       	            android:text="tttt"/>
+       	        <TextView 
+       	            android:layout_width="fill_parent"
+       	            android:text="tttt"/>
+       	    </TableRow>
+       	    <TableRow 
+       	        android:layout_width="fill_parent"
+       	        android:gravity="center">
+       	        <TextView 
+       	            android:layout_width="fill_parent"
+       	            android:text="tttt"/>
+       	        <TextView 
+       	            android:layout_width="fill_parent"
+       	            android:text="tttt"/>
+       	    </TableRow>
+       	</TableLayout>
+    </LinearLayout>
+
+</RelativeLayout>

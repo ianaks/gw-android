@@ -1,4 +1,4 @@
-package com.guesswhat.android.view;
+package com.guesswhat.android;
 
 import com.guesswhat.android.R;
 
@@ -31,8 +31,6 @@ public class MainActivity extends Activity {
 
     private void init_layout(){
     	mpButtonClick = MediaPlayer.create(context, R.raw.button_click);
-    	mpMainTheme.setLooping(true);
-    	mpMainTheme.start();
         ImageView buttonRecords = (ImageView)findViewById(R.id.button_records);
         buttonRecords.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +90,19 @@ public class MainActivity extends Activity {
 			}
 		});
         
+        ImageView playView = (ImageView)findViewById(R.id.button_play);
+        playView.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mpButtonClick.start();
+                Intent intent = new Intent(context, GameActivity.class);
+                startActivityForResult(intent, 0);
+			}
+		});
+        
         mpMainTheme = MediaPlayer.create(context, R.raw.main_theme);
+        mpMainTheme.start();
+    	mpMainTheme.setLooping(true);
     }
 }
