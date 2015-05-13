@@ -31,4 +31,21 @@ public class ServiceFactory {
         }
         return instance;
     }
+
+	public DatabaseService getDatabaseService() {
+		return databaseService;
+	}
+
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+	public QuestionService getQuestionService() {
+		return questionService;
+	}
+
+	public RecordService getRecordService() {
+		return recordService;
+	}
+	
 }

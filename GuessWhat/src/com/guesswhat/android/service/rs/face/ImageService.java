@@ -1,6 +1,8 @@
 package com.guesswhat.android.service.rs.face;
 
+import com.guesswhat.android.system.utils.ImageType;
+
 public interface ImageService {
-    byte [] findQuestionImage(Long questionId, String imageType);
-    byte [] findAnswerImage(Long questionId, String imageType);
+    byte [] findQuestionImage(String questionId, ImageType imageType);
+    byte [] findAnswerImage(String questionId, ImageType imageType);
 }

@@ -1,6 +1,8 @@
 package com.guesswhat.android;
 
 import com.guesswhat.android.R;
+import com.guesswhat.android.system.utils.ImageType;
+import com.guesswhat.android.system.utils.SystemProperties;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,6 +29,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         context = this;
         init_layout();
+        loadSystemProperties()
     }
 
     private void init_layout(){
@@ -105,4 +108,20 @@ public class MainActivity extends Activity {
         mpMainTheme.start();
     	mpMainTheme.setLooping(true);
     }
+    
+    private void loadSystemProperties() {
+    	double density = getResources().getDisplayMetrics().density;		
+		if (density >= 3.0) {
+			SystemProperties.IMAGE_TYPE = ImageType.XXHDPI;
+		} else if (density >= 2.0) {
+			SystemProperties.IMAGE_TYPE = ImageType.XHDPI;
+		} else if (density >= 1.5) {
+			SystemProperties.IMAGE_TYPE = ImageType.HDPI;
+		} else if (density >= 1.0) {
+			SystemProperties.IMAGE_TYPE = ImageType.MDPI;
+		} else {
+			SystemProperties.IMAGE_TYPE = ImageType.LDPI;
+		}
+	}
+    
 }

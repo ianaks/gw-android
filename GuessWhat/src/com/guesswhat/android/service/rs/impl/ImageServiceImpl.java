@@ -1,16 +1,17 @@
 package com.guesswhat.android.service.rs.impl;
 
 import com.guesswhat.android.service.rs.face.ImageService;
+import com.guesswhat.android.system.utils.ImageType;
 
 public class ImageServiceImpl implements ImageService {
 
     @Override
-    public byte[] findQuestionImage(Long questionId, String imageType) {
+    public byte[] findQuestionImage(String questionId, ImageType imageType) {
         return new byte[0];
     }
 
     @Override
-    public byte[] findAnswerImage(Long questionId, String imageType) {
+    public byte[] findAnswerImage(String questionId, ImageType imageType) {
         return new byte[0];
     }
 
