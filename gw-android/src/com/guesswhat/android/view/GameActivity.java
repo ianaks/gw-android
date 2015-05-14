@@ -1,4 +1,6 @@
-package com.guesswhat.android;
+package com.guesswhat.android.view;
+
+import com.guesswhat.android.R;
 
 import android.app.Activity;
 import android.content.Context;

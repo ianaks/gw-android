@@ -1,4 +1,4 @@
-package com.guesswhat.android;
+package com.guesswhat.android.view;
 
 import com.guesswhat.android.R;
 import com.guesswhat.android.system.utils.ImageType;
@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         context = this;
         init_layout();
-        loadSystemProperties()
+        loadSystemProperties();
     }
 
     private void init_layout(){

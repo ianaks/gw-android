@@ -1,4 +1,4 @@
-package com.guesswhat.android;
+package com.guesswhat.android.view;
 
 import com.guesswhat.android.R;
 
@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-/**
- * Created by Iana on 27.04.2015.
- */
 public class RecordsActivity extends Activity{
+	
     String[] names = { "1", "2", "3", "4", "5°", "6",
             "7", "8", "9", "10", "11" };
 

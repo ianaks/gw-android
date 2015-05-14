@@ -34,8 +34,7 @@
 
        	    <TableRow
        	        android:layout_width="fill_parent"
-       	        android:gravity="center"
-       	        android:lay>
+       	        android:gravity="center">
        	        <TextView 
        	            android:layout_width="fill_parent"
        	            android:text="tttt"/>"
