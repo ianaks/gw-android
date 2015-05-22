@@ -19,14 +19,10 @@ public class ServiceFactory {
     private static ServiceFactory instance = null;
 
     private ServiceFactory() {
-//        databaseService = AsyncTaskServiceRegister.proxify(new DatabaseServiceImpl());
-//        imageService = AsyncTaskServiceRegister.proxify(new ImageServiceImpl());
-//        questionService = AsyncTaskServiceRegister.proxify(new QuestionServiceImpl());
-//        recordService = AsyncTaskServiceRegister.proxify(new RecordServiceImpl());
-        databaseService = new DatabaseServiceImpl();
-        imageService = new ImageServiceImpl();
-        questionService = new QuestionServiceImpl();
-        recordService = new RecordServiceImpl();
+        databaseService = AsyncTaskServiceRegister.proxify(new DatabaseServiceImpl());
+        imageService = AsyncTaskServiceRegister.proxify(new ImageServiceImpl());
+        questionService = AsyncTaskServiceRegister.proxify(new QuestionServiceImpl());
+        recordService = AsyncTaskServiceRegister.proxify(new RecordServiceImpl());
     }
 
     public static ServiceFactory getServiceFactory() {
