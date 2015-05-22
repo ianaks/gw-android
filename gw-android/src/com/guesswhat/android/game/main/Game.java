@@ -4,15 +4,16 @@ import java.util.Iterator;
 
 import com.guesswhat.android.game.utils.PointsCalculator;
 import com.guesswhat.android.game.utils.QuestionsGenerator;
-import com.guesswhat.android.persistence.model.Question;
 import com.guesswhat.android.service.cfg.ServiceFactory;
+import com.guesswhat.android.service.rs.dto.QuestionDTO;
+import com.guesswhat.android.service.rs.dto.RecordDTO;
 import com.guesswhat.android.service.rs.face.ImageService;
 import com.guesswhat.android.system.utils.SystemProperties;
 
 public class Game {
 	
-	private Iterator<Question> questionIterator;
-	private Question currentQuestion;
+	private Iterator<QuestionDTO> questionIterator;
+	private QuestionDTO currentQuestion;
 	private GameRound currentRound;
 	private int totalPoints;
 	private Result result;
@@ -61,7 +62,13 @@ public class Game {
 	}
 	
 	private void calculateResult() {
-		result = new Result(totalPoints, false);
+		boolean isNewRecord = false;
+		if (totalPoints > 10) { // replace 10 with real user local record
+			isNewRecord = true;
+			// save new record to DB
+			ServiceFactory.getServiceFactory().getRecordService().saveUserRecord(new RecordDTO("userId", totalPoints)); // replace "userId" with real one
+		}
+		result = new Result(totalPoints, isNewRecord);
 	}
 
 	public Result getResult() {
