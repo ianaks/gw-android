@@ -15,7 +15,7 @@ import com.guesswhat.android.service.utils.ServiceUtils;
 public class DatabaseServiceImpl implements DatabaseService {
 
     @Override
-    public int getVersion() {
+    public Integer getVersion() {
     	String databaseUrl = ServiceUtils.getDatabaseUrl();
 		
 		Client client = ClientBuilder.newClient();

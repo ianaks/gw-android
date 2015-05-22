@@ -42,7 +42,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public int findUserPlace(String userId) {
+    public Integer findUserPlace(String userId) {
     	Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(ServiceUtils.getRecordUrl());
 

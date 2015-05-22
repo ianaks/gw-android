@@ -7,5 +7,5 @@ import java.util.List;
 public interface RecordService {
     void saveUserRecord(RecordDTO recordDTO);
     List<RecordDTO> findTopRecords();
-    int findUserPlace(String userId);
+    Integer findUserPlace(String userId);
 }
