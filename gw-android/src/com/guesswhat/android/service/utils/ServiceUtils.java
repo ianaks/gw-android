@@ -2,7 +2,7 @@ package com.guesswhat.android.service.utils;
 
 import java.nio.charset.Charset;
 
-import org.glassfish.jersey.internal.util.Base64;
+import android.util.Base64;
 
 import com.guesswhat.android.system.utils.SystemProperties;
 
@@ -12,7 +12,7 @@ public class ServiceUtils {
 		return "Basic "
 				+ new String(Base64.encode(String.valueOf(
 						SystemProperties.AUTH_LOGIN + ":"
-								+ SystemProperties.AUTH_PASSWORD).getBytes()),
+								+ SystemProperties.AUTH_PASSWORD).getBytes(), Base64.DEFAULT),
 						Charset.forName("ASCII"));
 	}
 	
