@@ -8,7 +8,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     @Override
     public Integer getVersion() {
-    	String databaseUrl = ServiceUtils.getDatabaseUrl() + "version";
+    	String databaseUrl = ServiceUtils.getDatabaseUrl() + "/version";
     	
     	RestWebClient client = RestWebClient.getClient();
     	int version = client.postForObject(databaseUrl, null, Integer.class);

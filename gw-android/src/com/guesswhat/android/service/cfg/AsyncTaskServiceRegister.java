@@ -41,7 +41,7 @@ public class AsyncTaskServiceRegister {
 				
 			};
 			
-			return asyncTask.execute(params);
+			return asyncTask.execute(params).get();
 		}
 		
 	}

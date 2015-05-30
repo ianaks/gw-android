@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
@@ -18,6 +19,7 @@ public class AuthorizationInterceptor implements ClientHttpRequestInterceptor {
             throws IOException {
 
         HttpHeaders headers = request.getHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Authorization", ServiceUtils.getAuthorization());
         return execution.execute(request, body);
     }

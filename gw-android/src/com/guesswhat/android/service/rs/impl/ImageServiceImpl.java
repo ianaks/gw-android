@@ -18,7 +18,7 @@ public class ImageServiceImpl implements ImageService {
     }
     
     private byte[] downloadImage(String questionId, ImageType type, String path) {
-    	String imageUrl = ServiceUtils.getImageUrl() + "find" + path + questionId + type;
+    	String imageUrl = ServiceUtils.getImageUrl() + "/find/" + path + "/" + questionId + "/" + type;
     	
     	RestWebClient client = RestWebClient.getClient();
     	byte[] bytes = client.postForObject(imageUrl, null, byte [].class);

@@ -15,7 +15,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<QuestionDTO> findQuestions() {
-    	String questionUrl = ServiceUtils.getQuestionUrl() + "findall";
+    	String questionUrl = ServiceUtils.getQuestionUrl() + "/findall";
     	
     	RestWebClient client = RestWebClient.getClient();
     	ParameterizedTypeReference<List<QuestionDTO>> responseType = new ParameterizedTypeReference<List<QuestionDTO>>() {

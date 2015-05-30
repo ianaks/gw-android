@@ -23,7 +23,7 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public List<RecordDTO> findTopRecords() {
-    	String recordUrl = ServiceUtils.getRecordUrl() + "top";
+    	String recordUrl = ServiceUtils.getRecordUrl() + "/top";
     	
     	RestWebClient client = RestWebClient.getClient();
     	ParameterizedTypeReference<List<RecordDTO>> responseType = new ParameterizedTypeReference<List<RecordDTO>>() {
@@ -36,7 +36,7 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public Integer findUserPlace(String userId) {
-    	String recordUrl = ServiceUtils.getRecordUrl() + "place" + userId;
+    	String recordUrl = ServiceUtils.getRecordUrl() + "/place/" + userId;
     	
     	RestWebClient client = RestWebClient.getClient();
     	int userPlace = client.postForObject(recordUrl, null, Integer.class);

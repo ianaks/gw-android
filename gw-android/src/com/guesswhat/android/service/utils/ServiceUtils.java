@@ -9,10 +9,9 @@ import com.guesswhat.android.system.utils.SystemProperties;
 public class ServiceUtils {
 
 	public static String getAuthorization() {
-		return "Basic "
-				+ new String(Base64.encode(String.valueOf(
+		return new String(Base64.encode(String.valueOf(
 						SystemProperties.AUTH_LOGIN + ":"
-								+ SystemProperties.AUTH_PASSWORD).getBytes(), Base64.DEFAULT),
+								+ SystemProperties.AUTH_PASSWORD).getBytes(), Base64.NO_WRAP),
 						Charset.forName("ASCII"));
 	}
 	
