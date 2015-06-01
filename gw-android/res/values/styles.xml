@@ -21,5 +21,11 @@
 	  <item name="android:windowFullscreen">true</item>
 	  <item name="android:windowNoTitle">true</item>
 	</style>
+	
+    <style name="EditTextAnswers">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/frame</item>			
+	 </style>
 
 </resources>

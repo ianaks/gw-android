@@ -23,43 +23,68 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="0dip"
 	        android:layout_weight="4" >
-        
+	        
+	            <ImageView
+	                android:id="@+id/question"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:layout_margin="20dp"
+	                android:background="@drawable/frame"
+	                android:src="@drawable/background" />
+	            
     	</LinearLayout>
     	
-       	<TableLayout
-       	    android:layout_width="fill_parent"
-       	    android:layout_height="0dip"
-       	    android:layout_gravity="center"
-       	    android:layout_weight="2" >
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dip"
+	        android:orientation="horizontal"
+	        android:layout_weight="2" >
+	            
+            <TableLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <TableRow
+                    android:layout_width="fill_parent">
+	            
+	           		 <EditText
+	           		     android:id="@+id/answer1"
+	           		     style="@style/EditTextAnswers"
+	           		     android:layout_weight="1"
+	           		     android:layout_width="0dp"
+	           		     android:layout_margin="5dp" />
 
-       	    <TableRow
-       	        android:layout_width="fill_parent"
-       	        android:gravity="center">
-       	        <TextView 
-       	            android:layout_width="fill_parent"
-       	            android:text="tttt"/>"
-       	    </TableRow>
-       	    <TableRow 
-       	        android:layout_width="fill_parent"
-       	        android:gravity="center">
-       	        <TextView 
-       	            android:layout_width="fill_parent"
-       	            android:text="tttt"/>
-       	        <TextView 
-       	            android:layout_width="fill_parent"
-       	            android:text="tttt"/>
-       	    </TableRow>
-       	    <TableRow 
-       	        android:layout_width="fill_parent"
-       	        android:gravity="center">
-       	        <TextView 
-       	            android:layout_width="fill_parent"
-       	            android:text="tttt"/>
-       	        <TextView 
-       	            android:layout_width="fill_parent"
-       	            android:text="tttt"/>
-       	    </TableRow>
-       	</TableLayout>
+	           		 <EditText
+	           		     android:id="@+id/answer2"
+	           		     style="@style/EditTextAnswers"
+	           		     android:layout_weight="1"
+	           		     android:layout_width="0dp"
+	           		     android:layout_margin="5dp" />
+	           	</TableRow>
+	           	
+	           	<TableRow
+	           	    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+	                <EditText
+	                    android:id="@+id/answer3"
+		                style="@style/EditTextAnswers"
+	           		     android:layout_weight="1"
+	           		     android:layout_width="0dp"
+	           		     android:layout_margin="5dp" />
+	            
+	           		 <EditText
+	           		     android:id="@+id/answer4"
+		                 style="@style/EditTextAnswers"
+	           		     android:layout_weight="1"
+	           		     android:layout_width="0dp"
+	           		     android:layout_margin="5dp" />
+	           	</TableRow>
+            </TableLayout>
+	            
+    	</LinearLayout>
+    	
+       
     </LinearLayout>
 
 </RelativeLayout>
