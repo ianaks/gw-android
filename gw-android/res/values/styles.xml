@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -23,9 +23,10 @@
 	</style>
 	
     <style name="EditTextAnswers">
-        <item name="android:gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@drawable/frame</item>			
+        <item name="android:background">@drawable/frame</item>	
+        <item name="android:editable">false</item>		
 	 </style>
 
 </resources>

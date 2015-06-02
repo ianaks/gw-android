@@ -28,7 +28,7 @@
 	                android:id="@+id/question"
 	                android:layout_width="fill_parent"
 	                android:layout_height="fill_parent"
-	                android:layout_margin="20dp"
+	                android:layout_margin="5dp"
 	                android:background="@drawable/frame"
 	                android:src="@drawable/background" />
 	            
@@ -37,20 +37,21 @@
         <LinearLayout
 	        android:layout_width="fill_parent"
 	        android:layout_height="0dip"
-	        android:orientation="horizontal"
-	        android:layout_weight="2" >
+	        android:orientation="vertical"
+	        android:layout_weight="2" 
+	        android:weightSum="4">
 	            
-            <TableLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-                <TableRow
-                    android:layout_width="fill_parent">
+            <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="0dip"
+		        android:orientation="horizontal"
+		        android:weightSum="2"
+		        android:layout_weight="2" >
 	            
 	           		 <EditText
 	           		     android:id="@+id/answer1"
 	           		     style="@style/EditTextAnswers"
+	           		     android:layout_height="fill_parent"
 	           		     android:layout_weight="1"
 	           		     android:layout_width="0dp"
 	           		     android:layout_margin="5dp" />
@@ -58,18 +59,22 @@
 	           		 <EditText
 	           		     android:id="@+id/answer2"
 	           		     style="@style/EditTextAnswers"
+	           		     android:layout_height="fill_parent"
 	           		     android:layout_weight="1"
 	           		     android:layout_width="0dp"
 	           		     android:layout_margin="5dp" />
-	           	</TableRow>
-	           	
-	           	<TableRow
-	           	    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
+	       </LinearLayout>
+	       <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="0dip"
+		        android:orientation="horizontal"
+		        android:weightSum="2"
+		        android:layout_weight="2" >
 	                <EditText
 	                    android:id="@+id/answer3"
 		                style="@style/EditTextAnswers"
 	           		     android:layout_weight="1"
+	           		     android:layout_height="fill_parent"
 	           		     android:layout_width="0dp"
 	           		     android:layout_margin="5dp" />
 	            
@@ -77,10 +82,10 @@
 	           		     android:id="@+id/answer4"
 		                 style="@style/EditTextAnswers"
 	           		     android:layout_weight="1"
+	           		     android:layout_height="fill_parent"
 	           		     android:layout_width="0dp"
 	           		     android:layout_margin="5dp" />
-	           	</TableRow>
-            </TableLayout>
+	           </LinearLayout>
 	            
     	</LinearLayout>
     	

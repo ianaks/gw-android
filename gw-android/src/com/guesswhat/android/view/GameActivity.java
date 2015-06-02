@@ -6,16 +6,24 @@ import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
 
 import android.app.Activity;
-import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class GameActivity extends Activity {
 	
-	private Context context;
 	private String[] questions;
 	
 	EditText answer1;
@@ -28,7 +36,6 @@ public class GameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-		context = this;
 		init_layout();
 	}
 	
@@ -39,30 +46,89 @@ public class GameActivity extends Activity {
 		answer4 = (EditText)findViewById(R.id.answer4);
 		question = (ImageView)findViewById(R.id.question);
 		
+		answer1.setOnClickListener(new OnAnswerClickListener());
+		answer2.setOnClickListener(new OnAnswerClickListener());
+		answer3.setOnClickListener(new OnAnswerClickListener());
+		answer4.setOnClickListener(new OnAnswerClickListener());
+	    
 		Game game = Game.getInstance();
 		game.initialize();
-		while (game.hasNext()) {
+		fillWidgets();
+	}
+	
+	private class OnAnswerClickListener implements OnClickListener{
+		
+		public OnAnswerClickListener() {
+		}
+
+		@Override
+		public void onClick(View v) {
+			Game game = Game.getInstance();
+			
+			switch(v.getId()) {
+	        	case R.id.answer1:
+		        	game.giveAnswer(answer1.getText().toString(), 0);
+		        	break;
+		        case R.id.answer2:
+		        	game.giveAnswer(answer2.getText().toString(), 0);
+		        	break;
+		        case R.id.answer3:
+		        	game.giveAnswer(answer3.getText().toString(), 0);
+		        	break;
+		        case R.id.answer4:
+		        	game.giveAnswer(answer4.getText().toString(), 0);
+		        	break;
+			}
+			fillWidgets();
+		}
+		
+	}
+	
+	private static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
+                .getHeight(), Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+	
+	private boolean fillWidgets(){
+		Game game = Game.getInstance();
+		
+		if (game.hasNext()) {
 			GameRound round = game.next();
 			questions = round.getAnswers();
 			answer1.setText(questions[0]);
 			answer2.setText(questions[1]);
 			answer3.setText(questions[2]);
 			answer4.setText(questions[3]);
-//			game.giveAnswer(answer, time);
-		   
-		  }
-		  
-		  Result result = game.getResult();
-	}
-	
-	private class OnAnswerClickListener implements OnClickListener{
-
-		@Override
-		public void onClick(View v) {
-			Game game = Game.getInstance();
 			
-		}
-		
+			Bitmap bmp = BitmapFactory.decodeByteArray(round.getImage(), 0,
+					round.getImage().length);
+			question.setImageBitmap(getRoundedCornerBitmap(bmp, 50));
+			
+			return true;
+		   
+		  } else{
+			  Result result = game.getResult();
+			  Toast.makeText(getApplicationContext(), "result " + result.getPoints() , Toast.LENGTH_LONG).show();
+			  
+			  return false;
+		  }
 	}
 
 }
