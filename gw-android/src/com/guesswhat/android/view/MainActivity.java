@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.guesswhat.android.R;
-import com.guesswhat.android.system.utils.PrefsLoader;
+import com.guesswhat.android.sqlite.helper.DatabaseHelper;
+import com.guesswhat.android.system.utils.PropertiesLoader;
 
 public class MainActivity extends Activity {
 	
@@ -109,8 +110,9 @@ public class MainActivity extends Activity {
     }
     
     private void initSystem() {
+    	DatabaseHelper databaseHelper = new DatabaseHelper(this);
     	double density = getResources().getDisplayMetrics().density;	
-    	PrefsLoader.load(density);
+    	PropertiesLoader.loadSystemProperties(databaseHelper, density);
     }
 
 }
