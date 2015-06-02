@@ -1,7 +1,6 @@
 package com.guesswhat.android.game.utils;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -16,7 +15,7 @@ public class QuestionsGenerator {
 	
 	private static Random random = new Random();
 
-	public static Iterator<QuestionDTO> generate(int count) {
+	public static List<QuestionDTO> generate(int count) {
 		Set<Integer> indexSet = new HashSet<Integer>();
 		while (indexSet.size() < SystemProperties.QUESTIONS_COUNT) {
 			int index = random.nextInt(questions.size());
@@ -28,7 +27,7 @@ public class QuestionsGenerator {
 			generatedQuestions.add(questions.get(index));			
 		}
 		
-		return generatedQuestions.iterator();
+		return generatedQuestions;
 	}
 
 	public static void setQuestions(List<QuestionDTO> questions) {

@@ -1,6 +1,8 @@
 package com.guesswhat.android.game.main;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.guesswhat.android.game.utils.PointsCalculator;
 import com.guesswhat.android.game.utils.QuestionsGenerator;
@@ -13,6 +15,7 @@ import com.guesswhat.android.system.utils.SystemProperties;
 public class Game {
 	
 	private Iterator<QuestionDTO> questionIterator;
+	private Iterator<byte []> imageIterator;
 	private QuestionDTO currentQuestion;
 	private GameRound currentRound;
 	private int totalPoints;
@@ -30,24 +33,38 @@ public class Game {
 	}
 	
 	public void initialize() {
-		questionIterator = QuestionsGenerator.generate(SystemProperties.QUESTIONS_COUNT);
+		List<QuestionDTO> questions = QuestionsGenerator.generate(SystemProperties.QUESTIONS_COUNT);
+		questionIterator = questions.iterator();
+		imageIterator = loadImages(questions);
 		currentQuestion = null;
 		currentRound = null;
 		totalPoints = 0;
 		result = null;
 	}
 	
-	public GameRound next() {
-		currentQuestion = questionIterator.next();
-		currentRound = new GameRound(currentQuestion);
+	private Iterator<byte[]> loadImages(List<QuestionDTO> questions) {
+		List<byte []> images = new ArrayList<byte []>();
 		ImageService imageService = ServiceFactory.getServiceFactory().getImageService();
-		byte [] image = imageService.findQuestionImage(currentQuestion.getId(), SystemProperties.IMAGE_TYPE);
-		currentRound.setImage(image);
-		return currentRound;
+		for (QuestionDTO questionDTO : questions) {
+			byte [] image = imageService.findQuestionImage(questionDTO.getId(), SystemProperties.IMAGE_TYPE);
+			images.add(image);
+		}
+		return images.iterator();
+	}
+
+	public GameRound next() {
+		if (hasNext()) {
+			currentQuestion = questionIterator.next();
+			currentRound = new GameRound(currentQuestion);
+			currentRound.setImage(imageIterator.next());
+			return currentRound;
+		} else {
+			throw new RuntimeException("There is no next element!");
+		}
 	}
 	
 	public boolean hasNext() {
-		return questionIterator.hasNext();
+		return questionIterator.hasNext() && imageIterator.hasNext();
 	}
 	
 	public int giveAnswer(String answer, int time) {
