@@ -139,10 +139,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
     
+    public void updateProperty(String property, String value) {
+    	try (SQLiteDatabase db = this.getWritableDatabase()) {
+	    	db.rawQuery("UPDATE "+ TABLE_SYSTEM_PROPERTIES + 
+	    			" SET " + COLUMN_PROPERTY + " = " + value +
+	                " WHERE " + COLUMN_PROPERTY + " = ?",
+	                new String[] { property });
+    	}
+    }
+    
     public String getProperty(String property) {
     	String value = null;
     	try (SQLiteDatabase db = this.getWritableDatabase()) {
-    		Cursor cursor = db.rawQuery("select * from " + TABLE_SYSTEM_PROPERTIES + " WHERE " + COLUMN_PROPERTY + " = '" + property + "'", null);
+    		Cursor cursor = db.rawQuery("SELECT * from " + TABLE_SYSTEM_PROPERTIES + 
+    				" WHERE " + COLUMN_PROPERTY + " = ?", 
+    				new String[] { property });
 
     		if (cursor.moveToFirst()) {
     			value = cursor.getString(cursor.getColumnIndex(COLUMN_VALUE));

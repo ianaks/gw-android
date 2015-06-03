@@ -85,7 +85,7 @@ public class Game {
 		SystemProperties.TOTAL_POINTS += gamePoints;
 		if (gamePoints > 0) {
 			DatabaseHelper helper = DatabaseHelper.getHelper();
-			helper.putProperty(Properties.TOTAL_POINTS.toString(), String.valueOf(SystemProperties.TOTAL_POINTS));
+			helper.updateProperty(Properties.TOTAL_POINTS.toString(), String.valueOf(SystemProperties.TOTAL_POINTS));
 			RecordService recordService = ServiceFactory.getServiceFactory().getRecordService();
 			recordService.saveUserRecord(new RecordDTO(SystemProperties.USER_ID, SystemProperties.TOTAL_POINTS));
 		}
