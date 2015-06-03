@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
         initSystem();
     }
 
-    private void init_layout(){
+    private void init_layout() {
     	mpButtonClick = MediaPlayer.create(context, R.raw.button_click);
         ImageView buttonRecords = (ImageView)findViewById(R.id.button_records);
         buttonRecords.setOnClickListener(new View.OnClickListener() {
@@ -80,12 +80,12 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				if(soundOn){
+				if (soundOn) {
 					soundView.setImageResource(R.drawable.button_sound_off);
 					mpButtonClick.setVolume(0, 0);
 					mpMainTheme.setVolume(0, 0);
 					soundOn = false;
-				} else{
+				} else {
 					soundView.setImageResource(R.drawable.button_sound);
 					mpButtonClick.setVolume(1, 1);
 					mpMainTheme.setVolume(1, 1);

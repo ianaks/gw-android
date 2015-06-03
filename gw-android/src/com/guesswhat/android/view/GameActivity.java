@@ -39,7 +39,7 @@ public class GameActivity extends Activity {
 		init_layout();
 	}
 	
-	private void init_layout(){
+	private void init_layout() {
 		answer1 = (EditText)findViewById(R.id.answer1);
 		answer2 = (EditText)findViewById(R.id.answer2);
 		answer3 = (EditText)findViewById(R.id.answer3);
@@ -65,7 +65,7 @@ public class GameActivity extends Activity {
 		public void onClick(View v) {
 			Game game = Game.getInstance();
 			
-			switch(v.getId()) {
+			switch (v.getId()) {
 	        	case R.id.answer1:
 		        	game.giveAnswer(answer1.getText().toString(), 0);
 		        	break;
@@ -106,7 +106,7 @@ public class GameActivity extends Activity {
         return output;
     }
 	
-	private boolean fillWidgets(){
+	private boolean fillWidgets() {
 		Game game = Game.getInstance();
 		
 		if (game.hasNext()) {
@@ -123,7 +123,7 @@ public class GameActivity extends Activity {
 			
 			return true;
 		   
-		  } else{
+		  } else {
 			  Result result = game.getResult();
 			  Toast.makeText(getApplicationContext(), "result " + result.getGamePoints() , Toast.LENGTH_LONG).show();
 			  
