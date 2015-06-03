@@ -5,6 +5,8 @@ public class SystemProperties {
 	public static ImageType IMAGE_TYPE = ImageType.MDPI;
 	public static final int QUESTION_TIMER = 30000; // milliseconds
 	public static final int QUESTIONS_COUNT = 10;
+	public static int TOTAL_POINTS = 0;
+	public static String USER_ID = null;
 	
 	public static final String SERVER_URL = "https://1-dot-guesswhatbackend.appspot.com";
 //	public static final String SERVER_URL = "http://10.0.3.2:8888";

@@ -9,7 +9,26 @@ import com.guesswhat.android.sqlite.helper.DatabaseHelper;
 
 public class PropertiesLoader {
 
-	public static void loadSystemProperties(DatabaseHelper databaseHelper, double density) {
+	public static void loadSystemProperties(String deviceId, double density) {
+		DatabaseHelper databaseHelper = DatabaseHelper.getHelper();
+		
+		// User id
+		String userId = databaseHelper.getProperty(Properties.USER_ID.toString());
+		if (userId == null) {
+			userId = System.nanoTime() + "_" + deviceId;
+			databaseHelper.putProperty(Properties.USER_ID.toString(), userId);
+		}
+		SystemProperties.USER_ID = userId;
+		
+		// Total points
+		String totalPoints = databaseHelper.getProperty(Properties.TOTAL_POINTS.toString());
+		if (totalPoints == null) {
+			databaseHelper.putProperty(Properties.TOTAL_POINTS.toString(), "0");
+			SystemProperties.TOTAL_POINTS = 0;
+		} else {
+			SystemProperties.TOTAL_POINTS = Integer.valueOf(totalPoints);
+		}
+		
 		// Image type
 		String imageType = databaseHelper.getProperty(Properties.IMAGE_TYPE.toString());
 		if (imageType == null) {

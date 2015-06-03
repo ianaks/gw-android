@@ -49,8 +49,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SYSTEM_PROPERTIES = "CREATE TABLE " + TABLE_SYSTEM_PROPERTIES
             + "(" + COLUMN_PROPERTY + " TEXT PRIMARY KEY," + COLUMN_VALUE + " TEXT" + ")";
  
-    public DatabaseHelper(Context context) {
+    private static DatabaseHelper helper;
+    
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+    
+    public static void init(Context context) {
+    	helper = new DatabaseHelper(context);
+    }
+    
+    public static DatabaseHelper getHelper() {
+    	return helper;
     }
  
     @Override

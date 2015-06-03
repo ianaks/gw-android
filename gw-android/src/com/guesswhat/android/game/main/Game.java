@@ -10,6 +10,9 @@ import com.guesswhat.android.service.cfg.ServiceFactory;
 import com.guesswhat.android.service.rs.dto.QuestionDTO;
 import com.guesswhat.android.service.rs.dto.RecordDTO;
 import com.guesswhat.android.service.rs.face.ImageService;
+import com.guesswhat.android.service.rs.face.RecordService;
+import com.guesswhat.android.sqlite.helper.DatabaseHelper;
+import com.guesswhat.android.system.utils.Properties;
 import com.guesswhat.android.system.utils.SystemProperties;
 
 public class Game {
@@ -18,7 +21,7 @@ public class Game {
 	private Iterator<byte []> imageIterator;
 	private QuestionDTO currentQuestion;
 	private GameRound currentRound;
-	private int totalPoints;
+	private int gamePoints;
 	private Result result;
 
 	private static Game instance;
@@ -38,7 +41,7 @@ public class Game {
 		imageIterator = loadImages(questions);
 		currentQuestion = null;
 		currentRound = null;
-		totalPoints = 0;
+		gamePoints = 0;
 		result = null;
 	}
 	
@@ -69,23 +72,24 @@ public class Game {
 	
 	public int giveAnswer(String answer, int time) {
 		int points = PointsCalculator.calculate(currentQuestion, answer, time);
-		totalPoints += points;
+		gamePoints += points;
 		
 		if (!hasNext()) {
 			calculateResult();
 		}
 		
-		return totalPoints;
+		return gamePoints;
 	}
 	
 	private void calculateResult() {
-		boolean isNewRecord = false;
-		if (totalPoints > 10) { // replace 10 with real user local record
-			isNewRecord = true;
-			// save new record to DB
-			ServiceFactory.getServiceFactory().getRecordService().saveUserRecord(new RecordDTO("userId", totalPoints)); // replace "userId" with real one
+		SystemProperties.TOTAL_POINTS += gamePoints;
+		if (gamePoints > 0) {
+			DatabaseHelper helper = DatabaseHelper.getHelper();
+			helper.putProperty(Properties.TOTAL_POINTS.toString(), String.valueOf(SystemProperties.TOTAL_POINTS));
+			RecordService recordService = ServiceFactory.getServiceFactory().getRecordService();
+			recordService.saveUserRecord(new RecordDTO(SystemProperties.USER_ID, SystemProperties.TOTAL_POINTS));
 		}
-		result = new Result(totalPoints, isNewRecord);
+		result = new Result(gamePoints, SystemProperties.TOTAL_POINTS);
 	}
 
 	public Result getResult() {

@@ -125,7 +125,7 @@ public class GameActivity extends Activity {
 		   
 		  } else{
 			  Result result = game.getResult();
-			  Toast.makeText(getApplicationContext(), "result " + result.getPoints() , Toast.LENGTH_LONG).show();
+			  Toast.makeText(getApplicationContext(), "result " + result.getGamePoints() , Toast.LENGTH_LONG).show();
 			  
 			  return false;
 		  }

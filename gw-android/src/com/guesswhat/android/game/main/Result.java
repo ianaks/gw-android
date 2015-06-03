@@ -2,32 +2,31 @@ package com.guesswhat.android.game.main;
 
 public class Result {
 
-	private int points;
-	private boolean isNewRecord;
+	private int gamePoints;
+	private int totalPoints;
 	
 	public Result() {}
-	
-	public Result(int points, boolean isNewRecord) {
+
+	public Result(int gamePoints, int totalPoints) {
 		super();
-		this.points = points;
-		this.isNewRecord = isNewRecord;
+		this.gamePoints = gamePoints;
+		this.totalPoints = totalPoints;
 	}
-	
-	public int getPoints() {
-		return points;
+
+	public int getGamePoints() {
+		return gamePoints;
 	}
-	
-	public void setPoints(int points) {
-		this.points = points;
+
+	public void setGamePoints(int gamePoints) {
+		this.gamePoints = gamePoints;
 	}
-	
-	public boolean isNewRecord() {
-		return isNewRecord;
+
+	public int getTotalPoints() {
+		return totalPoints;
 	}
-	
-	public void setNewRecord(boolean isNewRecord) {
-		this.isNewRecord = isNewRecord;
+
+	public void setTotalPoints(int totalPoints) {
+		this.totalPoints = totalPoints;
 	}
-	
 	
 }

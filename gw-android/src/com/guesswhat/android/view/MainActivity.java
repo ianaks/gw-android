@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -110,9 +111,10 @@ public class MainActivity extends Activity {
     }
     
     private void initSystem() {
-    	DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    	DatabaseHelper.init(this);
+    	String deviceId = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
     	double density = getResources().getDisplayMetrics().density;	
-    	PropertiesLoader.loadSystemProperties(databaseHelper, density);
+    	PropertiesLoader.loadSystemProperties(deviceId, density);
     }
 
 }
