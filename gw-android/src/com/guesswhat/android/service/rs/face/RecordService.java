@@ -8,7 +8,7 @@ public interface RecordService {
 	
     void saveUserRecord(RecordDTO recordDTO);
     
-    List<RecordDTO> findTopRecords();
+    List<Integer> findTopRecords();
     
     Integer findUserPlace(String userId);
     

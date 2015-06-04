@@ -5,6 +5,7 @@ import com.guesswhat.android.service.rs.dto.RecordDTO;
 import com.guesswhat.android.service.rs.face.RecordService;
 import com.guesswhat.android.service.utils.ServiceUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,7 +23,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<RecordDTO> findTopRecords() {
+    public List<Integer> findTopRecords() {
     	String recordUrl = ServiceUtils.getRecordUrl() + "/top";
     	
     	RestWebClient client = RestWebClient.getClient();
@@ -30,8 +31,13 @@ public class RecordServiceImpl implements RecordService {
     	};
     	ResponseEntity<List<RecordDTO>> result = client.exchange(recordUrl, HttpMethod.POST, null, responseType);
     	List<RecordDTO> records = result.getBody();
+    	
+    	List<Integer> points = new ArrayList<Integer>();
+    	for (RecordDTO recordDTO : records) {
+    		points.add(recordDTO.getPoints());
+    	}
 		
-		return records;
+		return points;
     }
 
     @Override
