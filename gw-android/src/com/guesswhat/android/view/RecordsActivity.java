@@ -1,16 +1,21 @@
 package com.guesswhat.android.view;
 
+import java.util.List;
+
 import com.guesswhat.android.R;
+import com.guesswhat.android.game.utils.RecordsAdapter;
+import com.guesswhat.android.service.cfg.ServiceFactory;
+import com.guesswhat.android.service.rs.face.RecordService;
+import com.guesswhat.android.system.utils.SystemProperties;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class RecordsActivity extends Activity{
 	
-    String[] names = { "1", "2", "3", "4", "5°", "6",
-            "7", "8", "9", "10", "11" };
+    private List<Integer> points;
+    private int userPlace;
 
     /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState) {
@@ -19,11 +24,30 @@ public class RecordsActivity extends Activity{
 
         ListView lstRecords;
         lstRecords = (ListView) findViewById(R.id.lstRecords);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.list_item_records, names);
-
-        lstRecords.setAdapter(adapter);
+        
+        getPoints();
+        
+        int listSize = points.size();
+        
+        if(listSize>=10){
+	        if(userPlace<10)
+	        	points = points.subList(0, 9);
+	        else{ 
+	        	points.add(11, points.get(userPlace));
+	        	points = points.subList(0, 11);
+	        }
+        }
+        RecordsAdapter recordsAdapter = new RecordsAdapter(points, userPlace, this);
+        lstRecords.setAdapter(recordsAdapter);
+        
 
     }
+    
+    private void getPoints(){
+    	RecordService recordService = ServiceFactory.getServiceFactory().getRecordService();
+    	points = recordService.findTopRecords();
+
+    	userPlace = recordService.findUserPlace(SystemProperties.USER_ID);
+    }
+    
 }

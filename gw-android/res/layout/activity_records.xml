@@ -35,7 +35,8 @@
         <TextView android:id="@+id/empty"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/empty"/>
+            android:text="@string/empty"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
