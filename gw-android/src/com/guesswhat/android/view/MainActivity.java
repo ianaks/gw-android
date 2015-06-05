@@ -1,9 +1,8 @@
 package com.guesswhat.android.view;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -23,6 +22,9 @@ public class MainActivity extends Activity {
 	
 	MediaPlayer mpButtonClick;
 	MediaPlayer mpMainTheme;
+	DialogFragment dlg;
+	Intent intent;
+	ImageView soundView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,79 +37,65 @@ public class MainActivity extends Activity {
 
     private void init_layout() {
     	mpButtonClick = MediaPlayer.create(context, R.raw.button_click);
-        ImageView buttonRecords = (ImageView)findViewById(R.id.button_records);
-        buttonRecords.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            	mpButtonClick.start();
-                Intent intent = new Intent(context, RecordsActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        });
 
-        ImageView buttonExit = (ImageView)findViewById(R.id.button_exit);
-        buttonExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            	mpButtonClick.start();
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                                                MainActivity.this);
-
-                alertDialogBuilder.setMessage("Are you sure you want to exit game?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes",
-                                new DialogInterface.OnClickListener() {
-
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        MainActivity.this.finish();
-                                    }
-                                })
-                        .setNegativeButton("No",
-			                new DialogInterface.OnClickListener() {
-			                    public void onClick(DialogInterface dialog,
-			                                        int id) {
-			                        dialog.cancel();
-			                    }
-			                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-            }
-        });
-        final ImageView soundView = (ImageView)findViewById(R.id.button_sound_on_off);
-        soundView.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if (soundOn) {
-					soundView.setImageResource(R.drawable.button_sound_off);
-					mpButtonClick.setVolume(0, 0);
-					mpMainTheme.setVolume(0, 0);
-					soundOn = false;
-				} else {
-					soundView.setImageResource(R.drawable.button_sound);
-					mpButtonClick.setVolume(1, 1);
-					mpMainTheme.setVolume(1, 1);
-					soundOn = true;
-				}
-			}
-		});
+        dlg = new GameDialogFragment("Ok", "No", "exit", "Are you sure you want to exit game?");
         
-        ImageView playView = (ImageView)findViewById(R.id.button_play);
-        playView.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				mpButtonClick.start();
-                Intent intent = new Intent(context, GameActivity.class);
-                startActivityForResult(intent, 0);
-			}
-		});
+        soundView = (ImageView)findViewById(R.id.button_sound_on_off);
         
         mpMainTheme = MediaPlayer.create(context, R.raw.main_theme);
         mpMainTheme.start();
     	mpMainTheme.setLooping(true);
+    }
+    
+    public void onClick(View v) {
+    	mpButtonClick.start();
+        switch (v.getId()) {        
+        case R.id.button_play:
+            intent = new Intent(context, GameActivity.class);
+            startActivityForResult(intent, 0);
+        break;
+        case R.id.button_records:
+        	intent = new Intent(context, RecordsActivity.class);
+            startActivityForResult(intent, 0);
+            break;
+        case R.id.button_exit:
+        	dlg.show(getFragmentManager(), "dlg");
+        	break;
+        case R.id.button_sound_on_off:
+        	if (soundOn) {
+        		soundView.setImageResource(R.drawable.button_sound_off);
+				mpButtonClick.setVolume(0, 0);
+				mpMainTheme.setVolume(0, 0);
+				soundOn = false;
+			} else {
+				soundView.setImageResource(R.drawable.button_sound);
+				mpButtonClick.setVolume(1, 1);
+				mpMainTheme.setVolume(1, 1);
+				soundOn = true;
+			}
+        	break;
+        default:
+        	break;
+        }
+
+      }
+    
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	mpMainTheme.pause();
+    }
+    
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	mpMainTheme.stop();
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	mpMainTheme.start();
     }
     
     private void initSystem() {
@@ -116,5 +104,5 @@ public class MainActivity extends Activity {
     	double density = getResources().getDisplayMetrics().density;	
     	PropertiesLoader.loadSystemProperties(deviceId, density);
     }
-
+    
 }

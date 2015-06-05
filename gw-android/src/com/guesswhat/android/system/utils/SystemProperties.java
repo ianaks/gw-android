@@ -4,7 +4,7 @@ public class SystemProperties {
 
 	public static ImageType IMAGE_TYPE = ImageType.MDPI;
 	public static final int QUESTION_TIMER = 30000; // milliseconds
-	public static final int QUESTIONS_COUNT = 10;
+	public static final int QUESTIONS_COUNT = 2;
 	public static int TOTAL_POINTS = 0;
 	public static String USER_ID = null;
 	

@@ -90,6 +90,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
+                android:onClick="onClick"
                 android:src="@drawable/button_sound" />
             </LinearLayout>
 
@@ -123,6 +124,7 @@
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
                     android:layout_weight="50"
+                    android:onClick="onClick"
                     android:src="@drawable/button_play" />
                 </LinearLayout>
 
@@ -137,12 +139,14 @@
                         android:layout_width="0dip"
                         android:layout_height="match_parent"
                         android:layout_weight="50"
+                        android:onClick="onClick"
                         android:src="@drawable/button_exit" />
                     <ImageView
                         android:id="@+id/button_records"
                         android:layout_width="0dip"
                         android:layout_height="match_parent"
                         android:layout_weight="50"
+                        android:onClick="onClick"
                         android:src="@drawable/button_records" />
                 </LinearLayout>
             </LinearLayout>

@@ -18,6 +18,7 @@ public class RecordsAdapter extends BaseAdapter{
 	private Context context;
 	
 	public RecordsAdapter(List<Integer> points, int userPlace, Context context){
+		super();
 		this.points = points;
 		this.userPlace = userPlace;
 		this.context = context;
@@ -25,20 +26,17 @@ public class RecordsAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return points.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return null;
+		return points.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 	@Override
@@ -47,7 +45,7 @@ public class RecordsAdapter extends BaseAdapter{
 	    if (v == null) {
 	        // Inflate the layout according to the view type
 	        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        if (position!=userPlace) {
+	        if (position+1!=userPlace) {
 	            v = inflater.inflate(R.layout.list_item_record, parent, false);
 	        }
 	        else {
@@ -58,13 +56,13 @@ public class RecordsAdapter extends BaseAdapter{
 	    TextView pointTxt = (TextView) v.findViewById(R.id.textViewRecord);
 	    TextView userPointTxt = (TextView) v.findViewById(R.id.textViewUserRecord);
 	    	    
-	    if(position<10 && userPlace!=position)
-	    	pointTxt.setText(userPlace + ". " + points.get(position));
-	    else if(userPlace==position)
+	    if(position<10 && userPlace!=position+1)
+	    	pointTxt.setText(position+1 + ". " + points.get(position));
+	    else if(userPlace==position+1)
 	    	userPointTxt.setText(userPlace + ". " + points.get(position));
-	    else if(userPlace>9 && position==10)
+	    else if(userPlace>10 && position==10)
 	    	pointTxt.setText("...");
-	    else if(userPlace>9 && position==11)
+	    else if(userPlace>10 && position==11)
 	    	userPointTxt.setText(userPlace + ". " + points.get(position));
 	    
 	    return v;

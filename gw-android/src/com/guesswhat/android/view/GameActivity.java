@@ -6,6 +6,7 @@ import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -17,10 +18,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class GameActivity extends Activity {
 	
@@ -31,6 +30,7 @@ public class GameActivity extends Activity {
 	EditText answer3;
 	EditText answer4;
 	ImageView question;
+	DialogFragment dlg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,44 +46,31 @@ public class GameActivity extends Activity {
 		answer4 = (EditText)findViewById(R.id.answer4);
 		question = (ImageView)findViewById(R.id.question);
 		
-		answer1.setOnClickListener(new OnAnswerClickListener());
-		answer2.setOnClickListener(new OnAnswerClickListener());
-		answer3.setOnClickListener(new OnAnswerClickListener());
-		answer4.setOnClickListener(new OnAnswerClickListener());
-	    
 		Game game = Game.getInstance();
 		game.initialize();
 		fillWidgets();
 	}
 	
-	private class OnAnswerClickListener implements OnClickListener{
+	public void onClick(View v) {
+		Game game = Game.getInstance();
 		
-		public OnAnswerClickListener() {
+		switch(v.getId()) {
+        	case R.id.answer1:
+	        	game.giveAnswer(answer1.getText().toString(), 0);
+	        	break;
+	        case R.id.answer2:
+	        	game.giveAnswer(answer2.getText().toString(), 0);
+	        	break;
+	        case R.id.answer3:
+	        	game.giveAnswer(answer3.getText().toString(), 0);
+	        	break;
+	        case R.id.answer4:
+	        	game.giveAnswer(answer4.getText().toString(), 0);
+	        	break;
 		}
-
-		@Override
-		public void onClick(View v) {
-			Game game = Game.getInstance();
-			
-			switch(v.getId()) {
-	        	case R.id.answer1:
-		        	game.giveAnswer(answer1.getText().toString(), 0);
-		        	break;
-		        case R.id.answer2:
-		        	game.giveAnswer(answer2.getText().toString(), 0);
-		        	break;
-		        case R.id.answer3:
-		        	game.giveAnswer(answer3.getText().toString(), 0);
-		        	break;
-		        case R.id.answer4:
-		        	game.giveAnswer(answer4.getText().toString(), 0);
-		        	break;
-			}
-			fillWidgets();
-		}
-		
+		fillWidgets();
 	}
-	
+		
 	private static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Config.ARGB_8888);
@@ -125,7 +112,9 @@ public class GameActivity extends Activity {
 		   
 		  } else{
 			  Result result = game.getResult();
-			  Toast.makeText(getApplicationContext(), "result " + result.getGamePoints() , Toast.LENGTH_LONG).show();
+			  dlg = new GameDialogFragment("Ok", "Best score", "score", "Your score: "
+					  + result.getGamePoints() + " points!");
+			  dlg.show(getFragmentManager(), "dlg");
 			  
 			  return false;
 		  }
