@@ -17,7 +17,6 @@ public class RecordsActivity extends Activity{
     private List<Integer> points;
     private int userPlace;
 
-    /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
@@ -27,7 +26,17 @@ public class RecordsActivity extends Activity{
         
         getPoints();
         
-        int listSize = points.size();
+//        int listSize = points.size();
+        int listSize = 10;
+        
+        points.add(43523);
+        points.add(45);
+        points.add(5325);
+        points.add(23523);
+        points.add(63);
+        points.add(12);
+        points.add(4567);
+        points.add(32423);
         
         if(listSize>=10){
 	        if(userPlace<10)

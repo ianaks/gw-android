@@ -1,7 +1,6 @@
 package com.guesswhat.android.view;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -22,7 +21,7 @@ public class MainActivity extends Activity {
 	
 	MediaPlayer mpButtonClick;
 	MediaPlayer mpMainTheme;
-	DialogFragment dlg;
+	GameDialogFragment dlg;
 	Intent intent;
 	ImageView soundView;
 
@@ -38,7 +37,11 @@ public class MainActivity extends Activity {
     private void init_layout() {
     	mpButtonClick = MediaPlayer.create(context, R.raw.button_click);
 
-        dlg = new GameDialogFragment("Ok", "No", "exit", "Are you sure you want to exit game?");
+        dlg = new GameDialogFragment();
+        dlg.setTextButton1("No");
+        dlg.setTextButton2("Yes");
+        dlg.setDialogType(GameDialogFragment.DIALOG_TYPE_EXIT);
+        dlg.setMessage("Are you sure you want to exit game?");
         
         soundView = (ImageView)findViewById(R.id.button_sound_on_off);
         

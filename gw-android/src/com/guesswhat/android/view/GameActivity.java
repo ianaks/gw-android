@@ -6,7 +6,6 @@ import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -30,7 +29,7 @@ public class GameActivity extends Activity {
 	EditText answer3;
 	EditText answer4;
 	ImageView question;
-	DialogFragment dlg;
+	GameDialogFragment dlg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +111,11 @@ public class GameActivity extends Activity {
 		   
 		  } else{
 			  Result result = game.getResult();
-			  dlg = new GameDialogFragment("Ok", "Best score", "score", "Your score: "
+			  dlg = new GameDialogFragment();
+			  dlg.setTextButton1("Ok");
+			  dlg.setTextButton2("Best score");
+			  dlg.setDialogType(GameDialogFragment.DIALOG_TYPE_SCORE);
+			  dlg.setMessage("Your score: "
 					  + result.getGamePoints() + " points!");
 			  dlg.show(getFragmentManager(), "dlg");
 			  
