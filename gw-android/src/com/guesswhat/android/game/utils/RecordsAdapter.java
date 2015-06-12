@@ -56,7 +56,7 @@ public class RecordsAdapter extends BaseAdapter{
 	    	    	holder.pointTxt.setBackgroundColor(Color.GRAY);
 	    	    	holder.pointTxt.getBackground().setAlpha(50);
 	    	    	holder.rankTxt.setBackgroundColor(Color.GRAY);
-	    	    	holder.pointTxt.getBackground().setAlpha(50);
+	    	    	holder.rankTxt.getBackground().setAlpha(50);
 	    	    }
 	    	    else{
 	    	    	holder.rankTxt.setBackgroundColor(Color.TRANSPARENT);

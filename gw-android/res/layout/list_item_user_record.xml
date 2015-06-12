@@ -11,12 +11,14 @@
          android:layout_weight="1"
          android:layout_height="fill_parent"
          android:text="@string/rank"
-         style="@style/DarkBlueTextView"/>
+         android:gravity="start"
+         style="@style/UserRankItem"/>
      <TextView 
          android:id="@+id/txtUserPoints"
          android:layout_width="0dip"
          android:layout_weight="1"
          android:layout_height="fill_parent"
          android:text="@string/points"
-         style="@style/DarkBlueTextView"/>
+         android:gravity="end"
+         style="@style/UserPointItem"/>
 </LinearLayout>

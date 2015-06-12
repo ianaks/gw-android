@@ -13,40 +13,19 @@
         android:id="@+id/background" />
 
     <LinearLayout
-        android:weightSum="60"
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_height="match_parent"
+        android:weightSum="1"
         android:gravity="center">
         
-        <LinearLayout
-	        android:weightSum="2"
-	        android:layout_weight="10"
-	        android:layout_width="match_parent"
-	        android:orientation="horizontal"
-	        android:layout_height="0dip">
-	        <TextView 
-	            android:layout_width="0dip"
-	            android:layout_weight="1"
-	            android:layout_height="fill_parent"
-	            android:text="@string/rank"
-	            style="@style/WhiteTextView"/>
-	        <TextView 
-	            android:layout_width="0dip"
-	            android:layout_weight="1"
-	            android:layout_height="fill_parent"
-	            android:text="@string/points"
-	            style="@style/WhiteTextView"/>
-       	</LinearLayout>
-
         <ListView
             android:id="@+id/lstRecords"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
+            android:layout_width="0dip"
+            android:layout_weight="0.5"
+            android:layout_height="fill_parent"
             android:divider="@null"
             android:dividerHeight="4dp"
-            android:layout_weight="50"
-            android:listSelector="@drawable/dialog_frame"
             android:background="@android:color/transparent"
             android:cacheColorHint="@android:color/transparent"/>
 
