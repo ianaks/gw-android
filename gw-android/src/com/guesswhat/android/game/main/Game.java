@@ -35,7 +35,13 @@ public class Game {
 		return instance;
 	}
 	
-	public void initialize() {
+	public boolean initialize() {
+		DatabaseHelper helper = DatabaseHelper.getHelper();
+		String heartsProperty = helper.getProperty(Properties.HEARTS.toString());
+		if (heartsProperty == null || Integer.valueOf(heartsProperty) == 0) {
+			return false;
+		}
+		
 		List<QuestionDTO> questions = QuestionsGenerator.generate(SystemProperties.QUESTIONS_COUNT);
 		questionIterator = questions.iterator();
 		imageIterator = loadImages(questions);
@@ -43,8 +49,19 @@ public class Game {
 		currentRound = null;
 		gamePoints = 0;
 		result = null;
+		decrementHearts();
+		
+		return true;
 	}
 	
+	private void decrementHearts() {
+		DatabaseHelper helper = DatabaseHelper.getHelper();
+		String heartsProperty = helper.getProperty(Properties.HEARTS.toString());
+		int hearts = Integer.valueOf(heartsProperty);
+		helper.putProperty(Properties.HEARTS.toString(), String.valueOf(--hearts));
+		
+	}
+
 	private Iterator<byte[]> loadImages(List<QuestionDTO> questions) {
 		List<byte []> images = new ArrayList<byte []>();
 		ImageService imageService = ServiceFactory.getServiceFactory().getImageService();

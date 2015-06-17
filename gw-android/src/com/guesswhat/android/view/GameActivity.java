@@ -46,8 +46,11 @@ public class GameActivity extends Activity {
 		question = (ImageView)findViewById(R.id.question);
 		
 		Game game = Game.getInstance();
-		game.initialize();
-		fillWidgets();
+		if (game.initialize()) {
+			fillWidgets();
+		} else {
+			// notify user, that he hasn't enough hearts to play
+		}
 	}
 	
 	public void onClick(View v) {

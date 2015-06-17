@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.guesswhat.android.R;
 import com.guesswhat.android.sqlite.helper.DatabaseHelper;
 import com.guesswhat.android.system.utils.PropertiesLoader;
+import com.guesswhat.android.timer.TimeMaster;
 
 public class MainActivity extends Activity {
 	
@@ -106,6 +107,7 @@ public class MainActivity extends Activity {
     	String deviceId = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
     	double density = getResources().getDisplayMetrics().density;	
     	PropertiesLoader.loadSystemProperties(deviceId, density);
+    	TimeMaster.getInstance().startTime();
     }
     
 }
