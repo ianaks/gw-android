@@ -94,7 +94,7 @@ public class RecordsAdapter extends BaseAdapter{
 	    	holder.rankTxt.setText(String.valueOf(position+1));
 	    	holder.pointTxt.setText(String.valueOf(points.get(position)));
 	    }
-	    else if(userPlace==position+1 || userPlace>10 && position==10){
+	    else if(userPlace==position+1 || position==11){
 	    	holder.userRankTxt.setText(String.valueOf(userPlace));
     		holder.userPointTxt.setText(String.valueOf(points.get(position)));
 	    }

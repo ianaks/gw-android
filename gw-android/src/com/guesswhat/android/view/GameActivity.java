@@ -6,6 +6,7 @@ import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -125,5 +126,12 @@ public class GameActivity extends Activity {
 			  return false;
 		  }
 	}
+	
+	@Override
+    public void onBackPressed()
+    {
+    	Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 }

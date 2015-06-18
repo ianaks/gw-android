@@ -10,6 +10,7 @@ import com.guesswhat.android.system.utils.SystemProperties;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,16 +43,33 @@ public class RecordsActivity extends Activity{
         points.add(12);
         points.add(4567);
         points.add(32423);
-        points.add(2345);
-        userPlace = 11;
+        points.add(2340);
+        points.add(2341);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        points.add(2342);
+        userPlace = 23;
         
         if(listSize>=10){
 	        if(userPlace<=10)
 	        	points = points.subList(0, 10);
-	        else if(points.size()>11){ 
-	        	points.add(11, 67);
-	        	points.add(12, points.get(userPlace));
-	        	points = points.subList(0, 13);
+	        else if(userPlace>11){ 
+	        	points.set(11, points.get(userPlace-1));
+	        	points = points.subList(0, 12);
+	        } else if(userPlace==11){
+	        	points = points.subList(0, 11);
 	        }
         }
         RecordsAdapter recordsAdapter = new RecordsAdapter(points, userPlace, this);
@@ -90,6 +108,13 @@ public class RecordsActivity extends Activity{
         par.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
         listView.setLayoutParams(par);
         listView.requestLayout();
+    }
+    
+    @Override
+    public void onBackPressed()
+    {
+    	Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
     
 }
