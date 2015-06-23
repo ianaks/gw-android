@@ -14,12 +14,12 @@ import com.guesswhat.android.R;
 
 public class RecordsAdapter extends BaseAdapter{
 	
-	private List<Integer> points;
+	private List<String> points;
 	private int userPlace;
 	private Context context;
 	private ViewHolder holder = null;
 	
-	public RecordsAdapter(List<Integer> points, int userPlace, Context context){
+	public RecordsAdapter(List<String> points, int userPlace, Context context){
 		super();
 		this.points = points;
 		this.userPlace = userPlace;

@@ -22,6 +22,7 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
   
   public static final int DIALOG_TYPE_EXIT = 0;
   public static final int DIALOG_TYPE_SCORE = 1;
+  public static final int DIALOG_TYPE_GAME_EXIT = 2;
 
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
@@ -61,13 +62,18 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
 	        	break;
 			}
 		} else if(dialogType==DIALOG_TYPE_SCORE){
+			GameDialogFragment.this.getActivity().finish();
+			if (v.getId() == R.id.button2) {
+	    		Intent intent = new Intent(v.getContext(), RecordsActivity.class);
+	            startActivity(intent);
+			}
+		} else if(dialogType==DIALOG_TYPE_GAME_EXIT){
 			switch(v.getId()) {
 	    	case R.id.button1:
 	    		GameDialogFragment.this.getActivity().finish();
 	        	break;
 	    	case R.id.button2:
-	    		Intent intent = new Intent(v.getContext(), RecordsActivity.class);
-	            startActivity(intent);
+	    		getDialog().cancel();
 	            break;
 	        default:
 	        	break;

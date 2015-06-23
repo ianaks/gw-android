@@ -4,9 +4,9 @@ import com.guesswhat.android.R;
 import com.guesswhat.android.game.main.Game;
 import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
+import com.guesswhat.android.game.utils.MediaPlayerUtils;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -30,11 +30,11 @@ public class GameActivity extends Activity {
 	EditText answer3;
 	EditText answer4;
 	ImageView question;
-	GameDialogFragment dlg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MediaPlayerUtils.play(true);
 		setContentView(R.layout.activity_game);
 		init_layout();
 	}
@@ -109,13 +109,13 @@ public class GameActivity extends Activity {
 			
 			Bitmap bmp = BitmapFactory.decodeByteArray(round.getImage(), 0,
 					round.getImage().length);
-			question.setImageBitmap(getRoundedCornerBitmap(bmp, 50));
+			question.setImageBitmap(getRoundedCornerBitmap(bmp, bmp.getWidth() / 20));
 			
 			return true;
 		   
 		  } else{
 			  Result result = game.getResult();
-			  dlg = new GameDialogFragment();
+			  GameDialogFragment dlg = new GameDialogFragment();
 			  dlg.setTextButton1("Ok");
 			  dlg.setTextButton2("Best score");
 			  dlg.setDialogType(GameDialogFragment.DIALOG_TYPE_SCORE);
@@ -128,10 +128,13 @@ public class GameActivity extends Activity {
 	}
 	
 	@Override
-    public void onBackPressed()
-    {
-    	Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    public void onBackPressed() {
+		GameDialogFragment dlg = new GameDialogFragment();
+		dlg.setTextButton1("Ok");
+		dlg.setTextButton2("Cancel");
+		dlg.setDialogType(GameDialogFragment.DIALOG_TYPE_GAME_EXIT);
+		dlg.setMessage("Do you want to quit?");
+		dlg.show(getFragmentManager(), "dlg");
     }
 
 }

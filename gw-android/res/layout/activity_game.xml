@@ -55,6 +55,7 @@
 	           		     android:layout_weight="1"
 	           		     android:layout_width="0dp"
 	           		     android:onClick="onClick"
+	           		     android:focusable="false"
 	           		     android:layout_margin="5dp" />
 
 	           		 <EditText
@@ -64,6 +65,7 @@
 	           		     android:layout_weight="1"
 	           		     android:layout_width="0dp"
 	           		     android:onClick="onClick"
+	           		     android:focusable="false"
 	           		     android:layout_margin="5dp" />
 	       </LinearLayout>
 	       <LinearLayout
@@ -79,6 +81,7 @@
 	           		     android:layout_height="fill_parent"
 	           		     android:layout_width="0dp"
 	           		     android:onClick="onClick"
+	           		     android:focusable="false"
 	           		     android:layout_margin="5dp" />
 	            
 	           		 <EditText
@@ -88,6 +91,7 @@
 	           		     android:layout_height="fill_parent"
 	           		     android:layout_width="0dp"
 	           		     android:onClick="onClick"
+	           		     android:focusable="false"
 	           		     android:layout_margin="5dp" />
 	           </LinearLayout>
 	            

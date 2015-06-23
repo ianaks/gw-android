@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.guesswhat.android.R;
+import com.guesswhat.android.game.utils.MediaPlayerUtils;
 import com.guesswhat.android.sqlite.helper.DatabaseHelper;
 import com.guesswhat.android.system.utils.PropertiesLoader;
 import com.guesswhat.android.timer.TimeMaster;
@@ -21,7 +22,6 @@ public class MainActivity extends Activity {
 	Context context;
 	
 	MediaPlayer mpButtonClick;
-	MediaPlayer mpMainTheme;
 	GameDialogFragment dlg;
 	Intent intent;
 	ImageView soundView;
@@ -45,10 +45,6 @@ public class MainActivity extends Activity {
         dlg.setMessage("Are you sure you want to exit game?");
         
         soundView = (ImageView)findViewById(R.id.button_sound_on_off);
-        
-        mpMainTheme = MediaPlayer.create(context, R.raw.main_theme);
-        mpMainTheme.start();
-    	mpMainTheme.setLooping(true);
     }
     
     public void onClick(View v) {
@@ -69,12 +65,12 @@ public class MainActivity extends Activity {
         	if (soundOn) {
         		soundView.setImageResource(R.drawable.button_sound_off);
 				mpButtonClick.setVolume(0, 0);
-				mpMainTheme.setVolume(0, 0);
+				MediaPlayerUtils.play(false);
 				soundOn = false;
 			} else {
 				soundView.setImageResource(R.drawable.button_sound);
 				mpButtonClick.setVolume(1, 1);
-				mpMainTheme.setVolume(1, 1);
+				MediaPlayerUtils.play(true);
 				soundOn = true;
 			}
         	break;
@@ -87,23 +83,24 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
     	super.onPause();
-    	mpMainTheme.pause();
+    	MediaPlayerUtils.play(false);
     }
     
     @Override
     protected void onDestroy() {
     	super.onDestroy();
-    	mpMainTheme.stop();
+    	MediaPlayerUtils.stop();
     }
     
     @Override
     protected void onResume() {
     	super.onResume();
-    	mpMainTheme.start();
+    	MediaPlayerUtils.play(true);
     }
     
     private void initSystem() {
     	DatabaseHelper.init(this);
+    	MediaPlayerUtils.init(context);
     	String deviceId = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
     	double density = getResources().getDisplayMetrics().density;	
     	PropertiesLoader.loadSystemProperties(deviceId, density);
