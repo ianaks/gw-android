@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:layout_height="fill_parent">
-    <TextView 
+    <TextView
+        android:id="@+id/headerRank"
         android:layout_width="0dip"
         android:layout_weight="1"
         android:layout_height="fill_parent"
         android:text="@string/rank"
         style="@style/WhiteTextView"/>
-    <TextView 
+    <TextView
+        android:id="@+id/headerPoints"
         android:layout_width="0dip"
         android:layout_weight="1"
         android:layout_height="fill_parent"

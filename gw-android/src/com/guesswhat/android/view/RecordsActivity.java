@@ -14,13 +14,17 @@ import com.guesswhat.android.system.utils.SystemProperties;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class RecordsActivity extends Activity{
+public class RecordsActivity extends Activity {
+	
+	private static float FONT_SIZE_DP = 30f;
 	
     private List<String> points;
     private int userPlace;
@@ -28,28 +32,42 @@ public class RecordsActivity extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MediaPlayerUtils.play(true);
-        setContentView(R.layout.activity_records);
-        
-        ListView lstRecords;
-        lstRecords = (ListView) findViewById(R.id.lstRecords);
-        
-        getPoints();
-        
+        setContentView(R.layout.activity_records);        
+        buildListView();        
+    }
+    
+    private void buildListView() {
+    	getPoints();        
         String totalPoints = DatabaseHelper.getHelper().getProperty(Properties.TOTAL_POINTS.toString());
         if (userPlace > 11) {
         	points.add("...");
         }
         points.add(totalPoints);
         
-        RecordsAdapter recordsAdapter = new RecordsAdapter(points, userPlace, this);
+    	ListView lstRecords;
+        lstRecords = (ListView) findViewById(R.id.lstRecords);
+        
+        // font size in dp
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float fpixels = metrics.density * FONT_SIZE_DP;
+
+        RecordsAdapter recordsAdapter = new RecordsAdapter(points, userPlace, fpixels, this);
         lstRecords.setEnabled(false);
+        
         LayoutInflater inflater = getLayoutInflater();
-        lstRecords.addHeaderView(inflater.inflate(R.layout.list_item_header, lstRecords, false));
+        View convertView = inflater.inflate(R.layout.list_item_header, lstRecords, false);
+    	TextView headerPoints = (TextView) convertView.findViewById(R.id.headerPoints);
+    	TextView headerRank = (TextView) convertView.findViewById(R.id.headerRank);
+    	headerPoints.setTextSize(fpixels);
+    	headerRank.setTextSize(fpixels);
+    	
+        lstRecords.addHeaderView(convertView);
         lstRecords.setAdapter(recordsAdapter);
+        
         justifyListViewHeightBasedOnChildren(lstRecords);
-    }
-    
-    private void getPoints(){
+	}
+
+	private void getPoints(){
     	RecordService recordService = ServiceFactory.getServiceFactory().getRecordService();
     	userPlace = recordService.findUserPlace(SystemProperties.USER_ID);
     	List<Integer> topPoints = recordService.findTopRecords();

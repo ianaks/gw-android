@@ -12,17 +12,19 @@ import android.widget.TextView;
 
 import com.guesswhat.android.R;
 
-public class RecordsAdapter extends BaseAdapter{
+public class RecordsAdapter extends BaseAdapter {
 	
 	private List<String> points;
 	private int userPlace;
+	private float fontSize;
 	private Context context;
 	private ViewHolder holder = null;
 	
-	public RecordsAdapter(List<String> points, int userPlace, Context context){
+	public RecordsAdapter(List<String> points, int userPlace, float fontSize, Context context){
 		super();
 		this.points = points;
 		this.userPlace = userPlace;
+		this.fontSize = fontSize;
 		this.context = context;
 	}
 
@@ -48,22 +50,24 @@ public class RecordsAdapter extends BaseAdapter{
 	        // Inflate the layout according to the view type
 	        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	        holder = new ViewHolder();
-	        if (position+1!=userPlace && position!=11) {
+	        
+	        if (position + 1 != userPlace && position != 11) {
 	        	convertView = inflater.inflate(R.layout.list_item_record, parent, false);
 	        	holder.pointTxt = (TextView) convertView.findViewById(R.id.txtPoints);
 	        	holder.rankTxt = (TextView) convertView.findViewById(R.id.txtRank);
-	    	    if(position%2==0){
+	    	    if (position%2 == 0){
 	    	    	holder.pointTxt.setBackgroundColor(Color.GRAY);
 	    	    	holder.pointTxt.getBackground().setAlpha(50);
 	    	    	holder.rankTxt.setBackgroundColor(Color.GRAY);
 	    	    	holder.rankTxt.getBackground().setAlpha(50);
-	    	    }
-	    	    else{
+	    	    } else {
 	    	    	holder.rankTxt.setBackgroundColor(Color.TRANSPARENT);
 	    	    	holder.pointTxt.setBackgroundColor(Color.TRANSPARENT);
 	    	    }
-	        }
-	        else {
+	    	    // set font size for common row
+	    	    holder.pointTxt.setTextSize(fontSize);
+	    	    holder.rankTxt.setTextSize(fontSize);
+	        } else {
 	        	convertView = inflater.inflate(R.layout.list_item_user_record, parent, false);
 	        	holder.userPointTxt = (TextView) convertView.findViewById(R.id.txtUserPoints);
 	        	holder.userRankTxt = (TextView) convertView.findViewById(R.id.txtUserRank);
@@ -71,12 +75,16 @@ public class RecordsAdapter extends BaseAdapter{
 	        	holder.userPointTxt.getBackground().setAlpha(50);
 	        	holder.userRankTxt.setBackgroundColor(Color.CYAN);
 	        	holder.userRankTxt.getBackground().setAlpha(50);
+	        	// set font size for user row
+	        	holder.userPointTxt.setTextSize(fontSize);
+	    	    holder.userRankTxt.setTextSize(fontSize);
 	        }
+	        
 	        convertView.setTag(holder);
 	    } else {
 			holder = (ViewHolder)convertView.getTag();
 		}
-	    if(points!=null)
+	    if(points != null)
 	    	fillScoreList(position);
 	    
 	    return convertView;
