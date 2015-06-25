@@ -14,7 +14,6 @@ import com.guesswhat.android.system.utils.SystemProperties;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class RecordsActivity extends Activity {
-	
-	private static float FONT_SIZE_DP = 30f;
 	
     private List<String> points;
     private int userPlace;
@@ -39,27 +36,25 @@ public class RecordsActivity extends Activity {
     private void buildListView() {
     	getPoints();        
         String totalPoints = DatabaseHelper.getHelper().getProperty(Properties.TOTAL_POINTS.toString());
-        if (userPlace > 11) {
-        	points.add("...");
+        if (userPlace > 10) {
+	        if (userPlace > 11) {
+	        	points.add("...");
+	        }
+	        points.add(totalPoints);
         }
-        points.add(totalPoints);
         
     	ListView lstRecords;
         lstRecords = (ListView) findViewById(R.id.lstRecords);
-        
-        // font size in dp
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        float fpixels = metrics.density * FONT_SIZE_DP;
 
-        RecordsAdapter recordsAdapter = new RecordsAdapter(points, userPlace, fpixels, this);
+        RecordsAdapter recordsAdapter = new RecordsAdapter(points, userPlace, this);
         lstRecords.setEnabled(false);
         
         LayoutInflater inflater = getLayoutInflater();
         View convertView = inflater.inflate(R.layout.list_item_header, lstRecords, false);
     	TextView headerPoints = (TextView) convertView.findViewById(R.id.headerPoints);
     	TextView headerRank = (TextView) convertView.findViewById(R.id.headerRank);
-    	headerPoints.setTextSize(fpixels);
-    	headerRank.setTextSize(fpixels);
+    	headerPoints.setTextSize(SystemProperties.FONT_SIZE);
+    	headerRank.setTextSize(SystemProperties.FONT_SIZE);
     	
         lstRecords.addHeaderView(convertView);
         lstRecords.setAdapter(recordsAdapter);

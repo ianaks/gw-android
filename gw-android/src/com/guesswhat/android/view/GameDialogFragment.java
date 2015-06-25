@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.guesswhat.android.R;
+import com.guesswhat.android.system.utils.SystemProperties;
 
 public class GameDialogFragment extends DialogFragment implements OnClickListener {
 
@@ -25,9 +27,7 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
   public static final int DIALOG_TYPE_GAME_EXIT = 2;
 
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-			  
-		    
+      Bundle savedInstanceState) {		    
 	    View v = inflater.inflate(R.layout.fragment_dialog, container);
 	    v.setAlpha(0.8f);
 	    
@@ -37,11 +37,15 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
 	    TextView messageTxt = (TextView)v.findViewById(R.id.message);
 	    button1.setOnClickListener(this);
 	    button1.setText(textButton1);
+	    button1.setTextSize(SystemProperties.FONT_SIZE);
 	    button2.setText(textButton2);
+	    button2.setTextSize(SystemProperties.FONT_SIZE);
 	    button2.setOnClickListener(this);
 	    messageTxt.setText(message);
+	    messageTxt.setTextSize(SystemProperties.FONT_SIZE);
 	    
 	    getDialog().setCanceledOnTouchOutside(false);
+	    getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE); 
 	    
 	    View decorView = getDialog().getWindow().getDecorView();  
 	    decorView.setBackgroundResource(android.R.color.transparent);
@@ -53,10 +57,10 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
 		if(dialogType==DIALOG_TYPE_EXIT){
 			switch(v.getId()) {
 	    	case R.id.button1:
-	    		getDialog().cancel();
+	    		GameDialogFragment.this.getActivity().finish();
 	        	break;
 	    	case R.id.button2:
-	    		GameDialogFragment.this.getActivity().finish();
+	    		getDialog().cancel();	    		
 	        	break;
 	        default:
 	        	break;

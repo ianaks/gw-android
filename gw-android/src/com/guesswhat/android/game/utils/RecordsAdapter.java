@@ -11,20 +11,19 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.guesswhat.android.R;
+import com.guesswhat.android.system.utils.SystemProperties;
 
 public class RecordsAdapter extends BaseAdapter {
 	
 	private List<String> points;
 	private int userPlace;
-	private float fontSize;
 	private Context context;
 	private ViewHolder holder = null;
 	
-	public RecordsAdapter(List<String> points, int userPlace, float fontSize, Context context){
+	public RecordsAdapter(List<String> points, int userPlace, Context context){
 		super();
 		this.points = points;
 		this.userPlace = userPlace;
-		this.fontSize = fontSize;
 		this.context = context;
 	}
 
@@ -65,8 +64,8 @@ public class RecordsAdapter extends BaseAdapter {
 	    	    	holder.pointTxt.setBackgroundColor(Color.TRANSPARENT);
 	    	    }
 	    	    // set font size for common row
-	    	    holder.pointTxt.setTextSize(fontSize);
-	    	    holder.rankTxt.setTextSize(fontSize);
+	    	    holder.pointTxt.setTextSize(SystemProperties.FONT_SIZE);
+	    	    holder.rankTxt.setTextSize(SystemProperties.FONT_SIZE);
 	        } else {
 	        	convertView = inflater.inflate(R.layout.list_item_user_record, parent, false);
 	        	holder.userPointTxt = (TextView) convertView.findViewById(R.id.txtUserPoints);
@@ -76,8 +75,8 @@ public class RecordsAdapter extends BaseAdapter {
 	        	holder.userRankTxt.setBackgroundColor(Color.CYAN);
 	        	holder.userRankTxt.getBackground().setAlpha(50);
 	        	// set font size for user row
-	        	holder.userPointTxt.setTextSize(fontSize);
-	    	    holder.userRankTxt.setTextSize(fontSize);
+	        	holder.userPointTxt.setTextSize(SystemProperties.FONT_SIZE);
+	    	    holder.userRankTxt.setTextSize(SystemProperties.FONT_SIZE);
 	        }
 	        
 	        convertView.setTag(holder);

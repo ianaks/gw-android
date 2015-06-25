@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.guesswhat.android.R;
+import com.guesswhat.android.game.utils.HeartsController;
 import com.guesswhat.android.game.utils.MediaPlayerUtils;
 import com.guesswhat.android.sqlite.helper.DatabaseHelper;
 import com.guesswhat.android.system.utils.PropertiesLoader;
+import com.guesswhat.android.system.utils.SystemProperties;
 import com.guesswhat.android.timer.TimeMaster;
 
 public class MainActivity extends Activity {
@@ -39,8 +41,8 @@ public class MainActivity extends Activity {
     	mpButtonClick = MediaPlayer.create(context, R.raw.button_click);
 
         dlg = new GameDialogFragment();
-        dlg.setTextButton1("No");
-        dlg.setTextButton2("Yes");
+        dlg.setTextButton1("Yes");
+        dlg.setTextButton2("Cancel");
         dlg.setDialogType(GameDialogFragment.DIALOG_TYPE_EXIT);
         dlg.setMessage("Are you sure you want to exit game?");
         
@@ -51,8 +53,10 @@ public class MainActivity extends Activity {
     	mpButtonClick.start();
         switch (v.getId()) {        
         case R.id.button_play:
-            intent = new Intent(context, GameActivity.class);
-            startActivityForResult(intent, 0);
+        	if (SystemProperties.HEARTS_COUNT > 0) {
+        		intent = new Intent(context, GameActivity.class);
+        		startActivityForResult(intent, 0);
+        	}
         break;
         case R.id.button_records:
         	intent = new Intent(context, RecordsActivity.class);
@@ -102,9 +106,11 @@ public class MainActivity extends Activity {
     	DatabaseHelper.init(this);
     	MediaPlayerUtils.init(context);
     	String deviceId = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
-    	double density = getResources().getDisplayMetrics().density;	
-    	PropertiesLoader.loadSystemProperties(deviceId, density);
-    	TimeMaster.getInstance().startTime();
+    	double density = getResources().getDisplayMetrics().density;
+    	int width = getResources().getDisplayMetrics().widthPixels;
+    	PropertiesLoader.loadSystemProperties(deviceId, density, width);
+    	TimeMaster.getInstance(this).startTime();
+    	HeartsController.init(this);
     }
     
 }

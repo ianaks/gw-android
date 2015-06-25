@@ -6,5 +6,6 @@ public enum Properties {
 	TOTAL_POINTS,
 	USER_ID,
 	HEARTS,
-	LAST_HEART_TIME;
+	LAST_HEART_TIME,
+	FONT_SIZE;
 }

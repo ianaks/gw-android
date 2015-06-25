@@ -64,8 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
  
     @Override
-    public void onCreate(SQLiteDatabase db) {
- 
+    public void onCreate(SQLiteDatabase db) { 
         // creating required tables
         db.execSQL(CREATE_TABLE_QUESTIONS);
         db.execSQL(CREATE_TABLE_SYSTEM_PROPERTIES);
@@ -130,21 +129,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     
     public void putProperty(String property, String value) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_PROPERTY, property);
-        values.put(COLUMN_VALUE, value);
- 
-        try (SQLiteDatabase db = this.getWritableDatabase()) {
-        	db.insert(TABLE_SYSTEM_PROPERTIES, null, values);
+        if (getProperty(property) == null) {    	
+	    	ContentValues values = new ContentValues();
+	        values.put(COLUMN_PROPERTY, property);
+	        values.put(COLUMN_VALUE, value);
+	        
+	        try (SQLiteDatabase db = this.getWritableDatabase()) {
+	        	db.insert(TABLE_SYSTEM_PROPERTIES, null, values);
+	        }
+        } else {
+        	updateProperty(property, value);
         }
     }
     
-    public void updateProperty(String property, String value) {
+    private void updateProperty(String property, String value) {
     	try (SQLiteDatabase db = this.getWritableDatabase()) {
-	    	db.rawQuery("UPDATE " + TABLE_SYSTEM_PROPERTIES
-	    			+ " SET " + COLUMN_PROPERTY + " = " + value
+	    	db.execSQL("UPDATE " + TABLE_SYSTEM_PROPERTIES
+	    			+ " SET " + COLUMN_VALUE + " = ?"
 	    			+ " WHERE " + COLUMN_PROPERTY + " = ?",
-	                new String[] { property });
+	    			new String [] {value, property});
     	}
     }
     

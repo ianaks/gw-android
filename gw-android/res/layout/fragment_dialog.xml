@@ -13,7 +13,7 @@
      android:layout_height="wrap_content" 
      android:gravity="center"  
      style="@style/BlueTextView"
-     android:layout_margin="10dip"
+     android:layout_margin="50dip"
      android:maxLines="10"  >  
    </TextView>  
    

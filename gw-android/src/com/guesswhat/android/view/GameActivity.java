@@ -5,6 +5,7 @@ import com.guesswhat.android.game.main.Game;
 import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
 import com.guesswhat.android.game.utils.MediaPlayerUtils;
+import com.guesswhat.android.system.utils.SystemProperties;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -45,6 +46,11 @@ public class GameActivity extends Activity {
 		answer3 = (EditText)findViewById(R.id.answer3);
 		answer4 = (EditText)findViewById(R.id.answer4);
 		question = (ImageView)findViewById(R.id.question);
+		
+		answer1.setTextSize(SystemProperties.FONT_SIZE);
+		answer2.setTextSize(SystemProperties.FONT_SIZE);
+		answer3.setTextSize(SystemProperties.FONT_SIZE);
+		answer4.setTextSize(SystemProperties.FONT_SIZE);
 		
 		Game game = Game.getInstance();
 		if (game.initialize()) {

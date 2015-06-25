@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.guesswhat.android.game.utils.HeartsController;
 import com.guesswhat.android.game.utils.PointsCalculator;
 import com.guesswhat.android.game.utils.QuestionsGenerator;
 import com.guesswhat.android.service.cfg.ServiceFactory;
@@ -36,9 +37,7 @@ public class Game {
 	}
 	
 	public boolean initialize() {
-		DatabaseHelper helper = DatabaseHelper.getHelper();
-		String heartsProperty = helper.getProperty(Properties.HEARTS.toString());
-		if (heartsProperty == null || Integer.valueOf(heartsProperty) == 0) {
+		if (SystemProperties.HEARTS_COUNT == 0) {
 			return false;
 		}
 		
@@ -49,17 +48,9 @@ public class Game {
 		currentRound = null;
 		gamePoints = 0;
 		result = null;
-		decrementHearts();
+		HeartsController.decreaseHearts();
 		
 		return true;
-	}
-	
-	private void decrementHearts() {
-		DatabaseHelper helper = DatabaseHelper.getHelper();
-		String heartsProperty = helper.getProperty(Properties.HEARTS.toString());
-		int hearts = Integer.valueOf(heartsProperty);
-		helper.putProperty(Properties.HEARTS.toString(), String.valueOf(--hearts));
-		
 	}
 
 	private Iterator<byte[]> loadImages(List<QuestionDTO> questions) {
@@ -102,7 +93,7 @@ public class Game {
 		SystemProperties.TOTAL_POINTS += gamePoints;
 		if (gamePoints > 0) {
 			DatabaseHelper helper = DatabaseHelper.getHelper();
-			helper.updateProperty(Properties.TOTAL_POINTS.toString(), String.valueOf(SystemProperties.TOTAL_POINTS));
+			helper.putProperty(Properties.TOTAL_POINTS.toString(), String.valueOf(SystemProperties.TOTAL_POINTS));
 			RecordService recordService = ServiceFactory.getServiceFactory().getRecordService();
 			recordService.saveUserRecord(new RecordDTO(SystemProperties.USER_ID, SystemProperties.TOTAL_POINTS));
 		}
