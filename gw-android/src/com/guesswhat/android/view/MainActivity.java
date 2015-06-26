@@ -50,7 +50,9 @@ public class MainActivity extends Activity {
     }
     
     public void onClick(View v) {
-    	mpButtonClick.start();
+    	if (SystemProperties.SOUND) {
+    		mpButtonClick.start();
+    	}
         switch (v.getId()) {        
         case R.id.button_play:
         	if (SystemProperties.HEARTS_COUNT > 0) {
@@ -68,11 +70,9 @@ public class MainActivity extends Activity {
         case R.id.button_sound_on_off:
         	if (soundOn) {
         		soundView.setImageResource(R.drawable.button_sound_off);
-				mpButtonClick.setVolume(0, 0);
 				soundOn = false;
 			} else {
 				soundView.setImageResource(R.drawable.button_sound);
-				mpButtonClick.setVolume(1, 1);
 				soundOn = true;
 			}
         	MediaPlayerUtils.sound(soundOn);

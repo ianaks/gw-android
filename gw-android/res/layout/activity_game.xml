@@ -17,12 +17,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:weightSum="7" >
+        android:weightSum="5" >
         
         <LinearLayout
 	        android:layout_width="fill_parent"
 	        android:layout_height="0dip"
-	        android:layout_weight="4" >
+	        android:layout_weight="3" >
 	        
 	            <ImageView
 	                android:id="@+id/question"
@@ -32,27 +32,27 @@
 	                android:background="@drawable/frame"
 	                android:src="@drawable/background" />
 	            
-    	</LinearLayout>
-    	
-        <LinearLayout
-	        android:layout_width="fill_parent"
-	        android:layout_height="0dip"
-	        android:layout_weight="1" >
-	        
-		        <ProgressBar
-			        android:id="@+id/progressBar"
-			        style="?android:attr/progressBarStyleHorizontal"
-			        android:layout_width="fill_parent"
-	                android:layout_height="fill_parent"
-	                android:maxHeight="10dip" />
-        </LinearLayout>
+    	</LinearLayout>    	
     	
         <LinearLayout
 	        android:layout_width="fill_parent"
 	        android:layout_height="0dip"
 	        android:orientation="vertical"
 	        android:layout_weight="2" 
-	        android:weightSum="4">
+	        android:weightSum="5">
+	            
+            <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="0dip"
+		        android:orientation="horizontal"
+		        android:layout_weight="1" >
+	        
+                <ProgressBar
+				        android:id="@+id/progressBar"
+				        style="?android:attr/progressBarStyleHorizontal"
+				        android:layout_width="fill_parent"
+		                android:layout_height="fill_parent" />
+	        </LinearLayout>
 	            
             <LinearLayout
 		        android:layout_width="fill_parent"

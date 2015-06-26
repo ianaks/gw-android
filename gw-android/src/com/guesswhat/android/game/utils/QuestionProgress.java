@@ -13,6 +13,7 @@ public class QuestionProgress {
 	private static ProgressBar progressBar = null;
 	private static CountDownTimer timer = null;
 	private static boolean running = false;
+	private static int timePassed = 0;
 	
 	public static void init(Activity activity) {
 		progressBar = (ProgressBar) activity.findViewById(R.id.progressBar);
@@ -20,6 +21,7 @@ public class QuestionProgress {
 
 	public static void start() {
 		running = true;
+		timePassed = 0;
 		progressBar.setProgress(0);
 		timer = new CountDownTimer(SystemProperties.QUESTION_TIMER, 250) {
 
@@ -31,10 +33,12 @@ public class QuestionProgress {
 				if (ticks % 4 == 0) {
 					progressBar.incrementProgressBy(1);
 				}
+				timePassed = (int) (SystemProperties.QUESTION_TIMER - millisUntilFinished);
 			}
 
 			@Override
 			public void onFinish() {
+				running = false;
 				progressBar.setProgress(progressBar.getMax());
 				Game.getInstance().giveAnswer(null, SystemProperties.QUESTION_TIMER);
 			}
@@ -49,6 +53,10 @@ public class QuestionProgress {
 	
 	public static boolean isRunning() {
 		return running;
+	}
+
+	public static int getTime() {
+		return timePassed;
 	}
 
 }

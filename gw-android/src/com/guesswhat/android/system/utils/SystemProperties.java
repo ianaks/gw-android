@@ -3,8 +3,8 @@ package com.guesswhat.android.system.utils;
 public class SystemProperties {
 
 	public static final int QUESTION_TIMER = 10*1000; // 10 seconds
-	public static final int HEART_TIMER = 60*1000; // 1 minute
-	public static final int QUESTIONS_COUNT = 3;
+	public static final int HEART_TIMER = 5*60*1000; // 5 minutes
+	public static final int QUESTIONS_COUNT = 5;
 	public static final int HEARTS_MAXIMUM = 5;
 	
 	public static String USER_ID = null;

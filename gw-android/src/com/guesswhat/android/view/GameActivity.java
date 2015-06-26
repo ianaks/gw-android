@@ -72,20 +72,23 @@ public class GameActivity extends Activity {
 	public void onClick(View v) {
 		if (QuestionProgress.isRunning()) {
 			Game game = Game.getInstance();
+			int time = QuestionProgress.getTime();
+			String answer = null;
 			switch(v.getId()) {
 	        	case R.id.answer1:
-		        	game.giveAnswer(answer1.getText().toString(), 0);
+	        		answer = answer1.getText().toString();
 		        	break;
 		        case R.id.answer2:
-		        	game.giveAnswer(answer2.getText().toString(), 0);
+		        	answer = answer2.getText().toString();
 		        	break;
 		        case R.id.answer3:
-		        	game.giveAnswer(answer3.getText().toString(), 0);
+		        	answer = answer3.getText().toString();
 		        	break;
 		        case R.id.answer4:
-		        	game.giveAnswer(answer4.getText().toString(), 0);
+		        	answer = answer4.getText().toString();
 		        	break;
 			}
+			game.giveAnswer(answer, time);
 			QuestionProgress.cancel();
 		}
 		fillWidgets();
