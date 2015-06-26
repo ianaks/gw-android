@@ -50,6 +50,15 @@ public class PropertiesLoader {
 			SystemProperties.FONT_SIZE = Float.valueOf(value);
 		}
 		
+		// Sound
+		value = databaseHelper.getProperty(Properties.SOUND.toString());
+		if (value == null) {
+			SystemProperties.SOUND = true;
+			databaseHelper.putProperty(Properties.SOUND.toString(), String.valueOf(SystemProperties.SOUND));
+		} else {
+			SystemProperties.SOUND = Boolean.valueOf(value);
+		}
+		
 		// Database version and questions
 		int version = ServiceFactory.getServiceFactory().getDatabaseService().getVersion();
 		value = databaseHelper.getProperty(Properties.DATABASE_VERSION.toString());

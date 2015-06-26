@@ -19,7 +19,7 @@ import com.guesswhat.android.timer.TimeMaster;
 
 public class MainActivity extends Activity {
 	
-	private boolean soundOn = true;
+	private boolean soundOn = SystemProperties.SOUND;
 	
 	Context context;
 	
@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
         dlg.setDialogType(GameDialogFragment.DIALOG_TYPE_EXIT);
         dlg.setMessage("Are you sure you want to exit game?");
         
-        soundView = (ImageView)findViewById(R.id.button_sound_on_off);
+        soundView = (ImageView)findViewById(R.id.button_sound_on_off);     
     }
     
     public void onClick(View v) {
@@ -69,14 +69,14 @@ public class MainActivity extends Activity {
         	if (soundOn) {
         		soundView.setImageResource(R.drawable.button_sound_off);
 				mpButtonClick.setVolume(0, 0);
-				MediaPlayerUtils.play(false);
 				soundOn = false;
 			} else {
 				soundView.setImageResource(R.drawable.button_sound);
 				mpButtonClick.setVolume(1, 1);
-				MediaPlayerUtils.play(true);
 				soundOn = true;
 			}
+        	MediaPlayerUtils.sound(soundOn);
+			MediaPlayerUtils.play(soundOn);
         	break;
         default:
         	break;
@@ -104,13 +104,13 @@ public class MainActivity extends Activity {
     
     private void initSystem() {
     	DatabaseHelper.init(this);
-    	MediaPlayerUtils.init(context);
     	String deviceId = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
     	double density = getResources().getDisplayMetrics().density;
     	int width = getResources().getDisplayMetrics().widthPixels;
     	PropertiesLoader.loadSystemProperties(deviceId, density, width);
     	TimeMaster.getInstance(this).startTime();
     	HeartsController.init(this);
+    	MediaPlayerUtils.init(this);
     }
     
 }

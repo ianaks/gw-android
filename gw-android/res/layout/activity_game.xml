@@ -17,7 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:weightSum="6" >
+        android:weightSum="7" >
         
         <LinearLayout
 	        android:layout_width="fill_parent"
@@ -33,6 +33,19 @@
 	                android:src="@drawable/background" />
 	            
     	</LinearLayout>
+    	
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="1" >
+	        
+		        <ProgressBar
+			        android:id="@+id/progressBar"
+			        style="?android:attr/progressBarStyleHorizontal"
+			        android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:maxHeight="10dip" />
+        </LinearLayout>
     	
         <LinearLayout
 	        android:layout_width="fill_parent"
@@ -98,6 +111,6 @@
     	</LinearLayout>
     	
        
-    </LinearLayout>
+    </LinearLayout>     
 
 </RelativeLayout>

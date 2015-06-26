@@ -1,12 +1,5 @@
 package com.guesswhat.android.view;
 
-import com.guesswhat.android.R;
-import com.guesswhat.android.game.main.Game;
-import com.guesswhat.android.game.main.GameRound;
-import com.guesswhat.android.game.main.Result;
-import com.guesswhat.android.game.utils.MediaPlayerUtils;
-import com.guesswhat.android.system.utils.SystemProperties;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -21,6 +14,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+
+import com.guesswhat.android.R;
+import com.guesswhat.android.game.main.Game;
+import com.guesswhat.android.game.main.GameRound;
+import com.guesswhat.android.game.main.Result;
+import com.guesswhat.android.game.utils.MediaPlayerUtils;
+import com.guesswhat.android.game.utils.QuestionProgress;
+import com.guesswhat.android.system.utils.SystemProperties;
 
 public class GameActivity extends Activity {
 	
@@ -38,9 +40,14 @@ public class GameActivity extends Activity {
 		MediaPlayerUtils.play(true);
 		setContentView(R.layout.activity_game);
 		init_layout();
+		startGameProcess();
 	}
 	
-	private void init_layout(){
+	private void init_layout() {
+		QuestionProgress.init(this);
+		ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+		progressBar.setMax(SystemProperties.QUESTION_TIMER / 1000);
+				
 		answer1 = (EditText)findViewById(R.id.answer1);
 		answer2 = (EditText)findViewById(R.id.answer2);
 		answer3 = (EditText)findViewById(R.id.answer3);
@@ -50,8 +57,10 @@ public class GameActivity extends Activity {
 		answer1.setTextSize(SystemProperties.FONT_SIZE);
 		answer2.setTextSize(SystemProperties.FONT_SIZE);
 		answer3.setTextSize(SystemProperties.FONT_SIZE);
-		answer4.setTextSize(SystemProperties.FONT_SIZE);
-		
+		answer4.setTextSize(SystemProperties.FONT_SIZE);				
+	}
+	
+	private void startGameProcess() {
 		Game game = Game.getInstance();
 		if (game.initialize()) {
 			fillWidgets();
@@ -59,23 +68,25 @@ public class GameActivity extends Activity {
 			// notify user, that he hasn't enough hearts to play
 		}
 	}
-	
+
 	public void onClick(View v) {
-		Game game = Game.getInstance();
-		
-		switch(v.getId()) {
-        	case R.id.answer1:
-	        	game.giveAnswer(answer1.getText().toString(), 0);
-	        	break;
-	        case R.id.answer2:
-	        	game.giveAnswer(answer2.getText().toString(), 0);
-	        	break;
-	        case R.id.answer3:
-	        	game.giveAnswer(answer3.getText().toString(), 0);
-	        	break;
-	        case R.id.answer4:
-	        	game.giveAnswer(answer4.getText().toString(), 0);
-	        	break;
+		if (QuestionProgress.isRunning()) {
+			Game game = Game.getInstance();
+			switch(v.getId()) {
+	        	case R.id.answer1:
+		        	game.giveAnswer(answer1.getText().toString(), 0);
+		        	break;
+		        case R.id.answer2:
+		        	game.giveAnswer(answer2.getText().toString(), 0);
+		        	break;
+		        case R.id.answer3:
+		        	game.giveAnswer(answer3.getText().toString(), 0);
+		        	break;
+		        case R.id.answer4:
+		        	game.giveAnswer(answer4.getText().toString(), 0);
+		        	break;
+			}
+			QuestionProgress.cancel();
 		}
 		fillWidgets();
 	}
@@ -117,8 +128,9 @@ public class GameActivity extends Activity {
 					round.getImage().length);
 			question.setImageBitmap(getRoundedCornerBitmap(bmp, bmp.getWidth() / 20));
 			
-			return true;
-		   
+			QuestionProgress.start();
+			
+			return true;		   
 		  } else{
 			  Result result = game.getResult();
 			  GameDialogFragment dlg = new GameDialogFragment();

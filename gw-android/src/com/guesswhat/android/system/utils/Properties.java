@@ -7,5 +7,6 @@ public enum Properties {
 	USER_ID,
 	HEARTS,
 	LAST_HEART_TIME,
-	FONT_SIZE;
+	FONT_SIZE,
+	SOUND;
 }
