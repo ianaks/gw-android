@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
     	MediaPlayerUtils.init(this);
     	
     	// Ads lib
-    	String appKey = "8b587b841168c98364d21a98d1d2fb43d47ab5b7d76637fc";
+    	String appKey = "fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f";
         Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL);
     }
     
