@@ -78,7 +78,7 @@ public class Game {
 		return questionIterator.hasNext() && imageIterator.hasNext();
 	}
 	
-	public int giveAnswer(String answer, int time) {
+	public boolean giveAnswer(String answer, int time) {
 		int points = PointsCalculator.calculate(currentQuestion, answer, time);
 		gamePoints += points;
 		
@@ -86,7 +86,7 @@ public class Game {
 			calculateResult();
 		}
 		
-		return gamePoints;
+		return currentQuestion.getCorrectAnswer().equals(answer);
 	}
 	
 	private void calculateResult() {

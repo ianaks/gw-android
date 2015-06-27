@@ -9,6 +9,7 @@ import android.provider.Settings.Secure;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.appodeal.ads.Appodeal;
 import com.guesswhat.android.R;
 import com.guesswhat.android.game.utils.HeartsController;
 import com.guesswhat.android.game.utils.MediaPlayerUtils;
@@ -111,6 +112,10 @@ public class MainActivity extends Activity {
     	TimeMaster.getInstance(this).startTime();
     	HeartsController.init(this);
     	MediaPlayerUtils.init(this);
+    	
+    	// Ads lib
+    	String appKey = "8b587b841168c98364d21a98d1d2fb43d47ab5b7d76637fc";
+        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL);
     }
     
 }

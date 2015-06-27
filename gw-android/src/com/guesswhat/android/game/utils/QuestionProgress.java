@@ -41,6 +41,7 @@ public class QuestionProgress {
 				running = false;
 				progressBar.setProgress(progressBar.getMax());
 				Game.getInstance().giveAnswer(null, SystemProperties.QUESTION_TIMER);
+				QuestionEditorsController.setQuestionTimeout();
 			}
 			
 		}.start();

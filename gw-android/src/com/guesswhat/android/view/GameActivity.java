@@ -16,11 +16,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.appodeal.ads.Appodeal;
 import com.guesswhat.android.R;
 import com.guesswhat.android.game.main.Game;
 import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
 import com.guesswhat.android.game.utils.MediaPlayerUtils;
+import com.guesswhat.android.game.utils.QuestionEditorsController;
 import com.guesswhat.android.game.utils.QuestionProgress;
 import com.guesswhat.android.system.utils.SystemProperties;
 
@@ -28,11 +30,11 @@ public class GameActivity extends Activity {
 	
 	private String[] questions;
 	
-	EditText answer1;
-	EditText answer2;
-	EditText answer3;
-	EditText answer4;
-	ImageView question;
+	private EditText answer1;
+	private EditText answer2;
+	private EditText answer3;
+	private EditText answer4;
+	private ImageView question;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class GameActivity extends Activity {
 	
 	private void init_layout() {
 		QuestionProgress.init(this);
+		QuestionEditorsController.init(this);
 		ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		progressBar.setMax(SystemProperties.QUESTION_TIMER / 1000);
 				
@@ -52,12 +55,7 @@ public class GameActivity extends Activity {
 		answer2 = (EditText)findViewById(R.id.answer2);
 		answer3 = (EditText)findViewById(R.id.answer3);
 		answer4 = (EditText)findViewById(R.id.answer4);
-		question = (ImageView)findViewById(R.id.question);
-		
-		answer1.setTextSize(SystemProperties.FONT_SIZE);
-		answer2.setTextSize(SystemProperties.FONT_SIZE);
-		answer3.setTextSize(SystemProperties.FONT_SIZE);
-		answer4.setTextSize(SystemProperties.FONT_SIZE);				
+		question = (ImageView)findViewById(R.id.question);						
 	}
 	
 	private void startGameProcess() {
@@ -88,10 +86,16 @@ public class GameActivity extends Activity {
 		        	answer = answer4.getText().toString();
 		        	break;
 			}
-			game.giveAnswer(answer, time);
+			boolean correct = game.giveAnswer(answer, time);
+			if (correct) {
+				QuestionEditorsController.setCorrect(v.getId());
+			} else {
+				QuestionEditorsController.setWrong(v.getId());
+			}
 			QuestionProgress.cancel();
+		} else if (v.getId() == R.id.question) {			
+			fillWidgets();
 		}
-		fillWidgets();
 	}
 		
 	private static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
@@ -120,6 +124,9 @@ public class GameActivity extends Activity {
 		Game game = Game.getInstance();
 		
 		if (game.hasNext()) {
+			QuestionEditorsController.setDefaults();
+			QuestionEditorsController.setQuestionDefault();
+			
 			GameRound round = game.next();
 			questions = round.getAnswers();
 			answer1.setText(questions[0]);
@@ -143,6 +150,9 @@ public class GameActivity extends Activity {
 			  dlg.setMessage("Your score: "
 					  + result.getGamePoints() + " points!");
 			  dlg.show(getFragmentManager(), "dlg");
+			  
+			  // Ads
+			  Appodeal.show(this, Appodeal.INTERSTITIAL);
 			  
 			  return false;
 		  }
