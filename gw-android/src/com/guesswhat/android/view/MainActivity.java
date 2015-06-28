@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.appodeal.ads.Appodeal;
 import com.guesswhat.android.R;
+import com.guesswhat.android.game.utils.AdController;
 import com.guesswhat.android.game.utils.HeartsController;
+import com.guesswhat.android.game.utils.ImageDownloadProgress;
 import com.guesswhat.android.game.utils.MediaPlayerUtils;
 import com.guesswhat.android.sqlite.helper.DatabaseHelper;
 import com.guesswhat.android.system.utils.PropertiesLoader;
@@ -47,13 +50,13 @@ public class MainActivity extends Activity {
         dlg.setDialogType(GameDialogFragment.DIALOG_TYPE_EXIT);
         dlg.setMessage("Are you sure you want to exit game?");
         
-        soundView = (ImageView)findViewById(R.id.button_sound_on_off);     
+        soundView = (ImageView)findViewById(R.id.button_sound_on_off); 
+        
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.imageDownloadProgressBar);
+		progressBar.setMax(SystemProperties.QUESTIONS_COUNT);
     }
     
-    public void onClick(View v) {
-    	if (SystemProperties.SOUND) {
-    		mpButtonClick.start();
-    	}
+    public void onClick(View v) {    	
         switch (v.getId()) {        
         case R.id.button_play:
         	if (SystemProperties.HEARTS_COUNT > 0) {
@@ -82,7 +85,10 @@ public class MainActivity extends Activity {
         default:
         	break;
         }
-
+        
+        if (SystemProperties.SOUND) {
+    		mpButtonClick.start();
+    	}
       }
     
     @Override
@@ -112,10 +118,9 @@ public class MainActivity extends Activity {
     	TimeMaster.getInstance(this).startTime();
     	HeartsController.init(this);
     	MediaPlayerUtils.init(this);
+    	ImageDownloadProgress.init(this);
     	
-    	// Ads lib
-    	String appKey = "fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f";
-        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL);
+    	AdController.init(this);
     }
     
 }

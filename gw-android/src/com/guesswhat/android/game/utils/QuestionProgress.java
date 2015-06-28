@@ -16,7 +16,7 @@ public class QuestionProgress {
 	private static int timePassed = 0;
 	
 	public static void init(Activity activity) {
-		progressBar = (ProgressBar) activity.findViewById(R.id.progressBar);
+		progressBar = (ProgressBar) activity.findViewById(R.id.questionProgressBar);
 	}
 
 	public static void start() {

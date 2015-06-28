@@ -21,6 +21,7 @@ import com.guesswhat.android.R;
 import com.guesswhat.android.game.main.Game;
 import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
+import com.guesswhat.android.game.utils.AdController;
 import com.guesswhat.android.game.utils.MediaPlayerUtils;
 import com.guesswhat.android.game.utils.QuestionEditorsController;
 import com.guesswhat.android.game.utils.QuestionProgress;
@@ -48,7 +49,7 @@ public class GameActivity extends Activity {
 	private void init_layout() {
 		QuestionProgress.init(this);
 		QuestionEditorsController.init(this);
-		ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+		ProgressBar progressBar = (ProgressBar) findViewById(R.id.questionProgressBar);
 		progressBar.setMax(SystemProperties.QUESTION_TIMER / 1000);
 				
 		answer1 = (EditText)findViewById(R.id.answer1);
@@ -85,6 +86,8 @@ public class GameActivity extends Activity {
 		        case R.id.answer4:
 		        	answer = answer4.getText().toString();
 		        	break;
+		        default:
+		        	return;
 			}
 			boolean correct = game.giveAnswer(answer, time);
 			if (correct) {
@@ -141,7 +144,9 @@ public class GameActivity extends Activity {
 			QuestionProgress.start();
 			
 			return true;		   
-		  } else{
+		  } else {
+			  AdController.showImage(this);
+			  
 			  Result result = game.getResult();
 			  GameDialogFragment dlg = new GameDialogFragment();
 			  dlg.setTextButton1("Ok");
@@ -150,9 +155,6 @@ public class GameActivity extends Activity {
 			  dlg.setMessage("Your score: "
 					  + result.getGamePoints() + " points!");
 			  dlg.show(getFragmentManager(), "dlg");
-			  
-			  // Ads
-			  Appodeal.show(this, Appodeal.INTERSTITIAL);
 			  
 			  return false;
 		  }

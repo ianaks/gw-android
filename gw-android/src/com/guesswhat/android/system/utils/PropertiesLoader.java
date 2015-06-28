@@ -9,7 +9,7 @@ import com.guesswhat.android.sqlite.helper.DatabaseHelper;
 
 public class PropertiesLoader {
 	
-	private static final float FONT_SIZE_PERCENT = 0.02f; // 2%
+	private static final float FONT_SIZE_PERCENT = 0.015f; // 1.5%
 
 	public static void loadSystemProperties(String deviceId, double density, int width) {
 		DatabaseHelper databaseHelper = DatabaseHelper.getHelper();

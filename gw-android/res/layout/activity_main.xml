@@ -5,12 +5,20 @@
     android:layout_height="fill_parent"
     tools:context=".MainActivity">
 
+    <ProgressBar
+		android:id="@+id/imageDownloadProgressBar"
+		style="?android:attr/progressBarStyleLarge"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:visibility="gone" />
+    
     <ImageView
         android:src="@drawable/background"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="centerCrop"
         android:id="@+id/Splash_Background" />
+    
     <LinearLayout
         android:id="@+id/out"
         android:weightSum="60"

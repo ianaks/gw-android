@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.guesswhat.android.game.utils.HeartsController;
+import com.guesswhat.android.game.utils.ImageDownloadProgress;
 import com.guesswhat.android.game.utils.PointsCalculator;
 import com.guesswhat.android.game.utils.QuestionsGenerator;
 import com.guesswhat.android.service.cfg.ServiceFactory;
@@ -54,12 +55,15 @@ public class Game {
 	}
 
 	private Iterator<byte[]> loadImages(List<QuestionDTO> questions) {
+		ImageDownloadProgress.start();
 		List<byte []> images = new ArrayList<byte []>();
 		ImageService imageService = ServiceFactory.getServiceFactory().getImageService();
 		for (QuestionDTO questionDTO : questions) {
 			byte [] image = imageService.findQuestionImage(questionDTO.getId(), SystemProperties.IMAGE_TYPE);
 			images.add(image);
+			ImageDownloadProgress.increment();
 		}
+		ImageDownloadProgress.finish();
 		return images.iterator();
 	}
 
