@@ -5,23 +5,25 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.appodeal.ads.Appodeal;
 import com.guesswhat.android.R;
 import com.guesswhat.android.game.main.Game;
 import com.guesswhat.android.game.main.GameRound;
 import com.guesswhat.android.game.main.Result;
 import com.guesswhat.android.game.utils.AdController;
+import com.guesswhat.android.game.utils.BitmapEditor;
 import com.guesswhat.android.game.utils.MediaPlayerUtils;
 import com.guesswhat.android.game.utils.QuestionEditorsController;
 import com.guesswhat.android.game.utils.QuestionProgress;
@@ -61,7 +63,17 @@ public class GameActivity extends Activity {
 	
 	private void startGameProcess() {
 		Game game = Game.getInstance();
-		if (game.initialize()) {
+		boolean initialized = false;
+		try {
+			initialized = game.initialize();
+		} catch (Exception e) {
+			GameDialogFragment dlg = new GameDialogFragment(this);
+	        dlg.setTextButton1("Ok");
+	        dlg.setDialogType(GameDialogFragment.DIALOG_NO_INTERNET_ACCESS);
+	        dlg.setMessage("Check your Internet connection");
+	        dlg.show(getFragmentManager(), "dlg");
+		}
+		if (initialized) {
 			fillWidgets();
 		} else {
 			// notify user, that he hasn't enough hearts to play
@@ -89,7 +101,16 @@ public class GameActivity extends Activity {
 		        default:
 		        	return;
 			}
-			boolean correct = game.giveAnswer(answer, time);
+			boolean correct = false;
+			try {
+				correct = game.giveAnswer(answer, time);
+			} catch (Exception e) {
+				GameDialogFragment dlg = new GameDialogFragment(this);
+		        dlg.setTextButton1("Ok");
+		        dlg.setDialogType(GameDialogFragment.DIALOG_NO_INTERNET_ACCESS);
+		        dlg.setMessage("Check your Internet connection");
+		        dlg.show(getFragmentManager(), "dlg");
+			}
 			if (correct) {
 				QuestionEditorsController.setCorrect(v.getId());
 			} else {
@@ -100,28 +121,6 @@ public class GameActivity extends Activity {
 			fillWidgets();
 		}
 	}
-		
-	private static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
-                .getHeight(), Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = pixels;
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        return output;
-    }
 	
 	private boolean fillWidgets(){
 		Game game = Game.getInstance();
@@ -139,7 +138,7 @@ public class GameActivity extends Activity {
 			
 			Bitmap bmp = BitmapFactory.decodeByteArray(round.getImage(), 0,
 					round.getImage().length);
-			question.setImageBitmap(getRoundedCornerBitmap(bmp, bmp.getWidth() / 20));
+			question.setImageBitmap(BitmapEditor.getRoundedCornerBitmap(bmp, bmp.getWidth() / 20));
 			
 			QuestionProgress.start();
 			
@@ -148,7 +147,7 @@ public class GameActivity extends Activity {
 			  AdController.showImage(this);
 			  
 			  Result result = game.getResult();
-			  GameDialogFragment dlg = new GameDialogFragment();
+			  GameDialogFragment dlg = new GameDialogFragment(this);
 			  dlg.setTextButton1("Ok");
 			  dlg.setTextButton2("Best score");
 			  dlg.setDialogType(GameDialogFragment.DIALOG_TYPE_SCORE);

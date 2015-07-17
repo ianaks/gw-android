@@ -1,12 +1,16 @@
 package com.guesswhat.android.game.utils;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff.Mode;
 import android.os.CountDownTimer;
 import android.widget.ProgressBar;
 
 import com.guesswhat.android.R;
 import com.guesswhat.android.game.main.Game;
 import com.guesswhat.android.system.utils.SystemProperties;
+import com.guesswhat.android.view.GameActivity;
 
 public class QuestionProgress {
 	
@@ -40,8 +44,9 @@ public class QuestionProgress {
 			public void onFinish() {
 				running = false;
 				progressBar.setProgress(progressBar.getMax());
-				Game.getInstance().giveAnswer(null, SystemProperties.QUESTION_TIMER);
-				QuestionEditorsController.setQuestionTimeout();
+				Game game = Game.getInstance();
+				game.giveAnswer(null, SystemProperties.QUESTION_TIMER);
+//				QuestionEditorsController.setQuestionTimeout();
 			}
 			
 		}.start();

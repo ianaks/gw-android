@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>  
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+   android:layout_width="fill_parent"  
+   android:layout_height="fill_parent"
+   android:layout_gravity="center"  
+   android:background="@drawable/dialog_frame"  
+   android:orientation="vertical"  
+   android:padding="15dip"
+   android:gravity="center"  >   
+   
+   <LinearLayout
+	    android:layout_width="match_parent" 
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginLeft="10dip"  
+	    android:layout_marginRight="10dip"
+	    android:orientation="vertical">
+	    
+       <LinearLayout
+        android:id="@+id/LinearLayout1"   
+	    android:layout_height="0dp" 
+	    android:layout_width="match_parent"
+	    android:layout_weight="0.33"
+	    android:gravity="center"
+	    android:layout_marginBottom="15dp">
+
+	    <Button
+	        android:id="@+id/button1" 
+	        android:text="@string/watchAd" 
+	        style="@style/DialogButtons"
+	        android:layout_width="0dp" 
+	        android:layout_marginEnd="5dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="0.7" /> 
+	
+	    <TextView
+	        android:id="@+id/txt1" 
+	        android:text="@string/plus1heart"
+	        style="@style/WhiteTextView"
+	        android:layout_width="0dp" 
+	        android:layout_marginStart="5dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="0.3" />
+
+		</LinearLayout>
+	
+	  	 <LinearLayout
+	  	    android:id="@+id/LinearLayout2"
+		    android:layout_height="0dp" 
+	    	android:layout_width="match_parent"
+		    android:layout_weight="0.33"
+		    android:gravity="center"
+		    android:layout_marginBottom="15dp">
+	
+		    <Button
+		        android:id="@+id/button2" 
+		        android:text="@string/rateApp" 
+		        style="@style/DialogButtons"
+		        android:layout_width="0dp" 
+		        android:layout_marginEnd="5dip"
+		        android:layout_height="wrap_content" 
+		        android:layout_weight=".7" /> 
+		
+		    <TextView
+		        android:id="@+id/txt2" 
+		        android:text="@string/plus1heart"
+				style="@style/WhiteTextView"
+		        android:layout_width="0dp" 
+		        android:layout_marginStart="5dip"
+		        android:layout_height="wrap_content" 
+		        android:layout_weight=".3" />
+	
+		</LinearLayout>
+		
+		 <LinearLayout
+		    android:id="@+id/LinearLayout3"
+		    android:layout_height="0dp" 
+	    	android:layout_width="match_parent"
+		    android:layout_weight="0.33"
+		    android:gravity="center">
+	
+		    <Button
+		        android:id="@+id/button3" 
+		        android:text="@string/shareInFacebook" 
+		        style="@style/DialogButtons"
+		        android:layout_width="0dp" 
+		        android:layout_marginEnd="5dip"
+		        android:layout_height="wrap_content" 
+		        android:layout_weight=".7" /> 
+		
+		    <TextView
+		        android:id="@+id/txt3" 
+		        android:text="@string/plus1heart"
+				style="@style/WhiteTextView"
+		        android:layout_width="0dp" 
+		        android:layout_marginStart="5dip"
+		        android:layout_height="wrap_content" 
+		        android:layout_weight=".3" />
+		    </LinearLayout>
+
+	</LinearLayout>
+  
+ </RelativeLayout> 

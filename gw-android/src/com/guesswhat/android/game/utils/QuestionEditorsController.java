@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.guesswhat.android.R;
 import com.guesswhat.android.system.utils.SystemProperties;
+import com.guesswhat.android.view.GameActivity;
 
 public class QuestionEditorsController {
 	
@@ -71,12 +72,12 @@ public class QuestionEditorsController {
 		curBackground.setColors(new int [] {Color.TRANSPARENT, Color.parseColor("#66FFFF")});
 	}
 	
-	public static void setQuestionTimeout() {
-		question.setBackgroundColor(Color.RED);
-	}
+//	public static void setQuestionTimeout() {
+//		setCorrect(GameActivity.correctButton);
+//	}
 	
 	public static void setQuestionDefault() {
-		question.setBackgroundColor(Color.TRANSPARENT);
+		question.setImageBitmap(BitmapEditor.getDefaultBitmap());
 	}
 	
 }

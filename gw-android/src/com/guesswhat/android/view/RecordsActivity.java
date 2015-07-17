@@ -62,14 +62,22 @@ public class RecordsActivity extends Activity {
         justifyListViewHeightBasedOnChildren(lstRecords);
 	}
 
-	private void getPoints(){
-    	RecordService recordService = ServiceFactory.getServiceFactory().getRecordService();
-    	userPlace = recordService.findUserPlace(SystemProperties.USER_ID);
-    	List<Integer> topPoints = recordService.findTopRecords();
-    	points = new ArrayList<String>();
-    	for (Integer topPoint : topPoints) {
-    		points.add(String.valueOf(topPoint));
-    	}
+	private void getPoints() {
+		try {
+	    	RecordService recordService = ServiceFactory.getServiceFactory().getRecordService();
+	    	userPlace = recordService.findUserPlace(SystemProperties.USER_ID);
+	    	List<Integer> topPoints = recordService.findTopRecords();
+	    	points = new ArrayList<String>();
+	    	for (Integer topPoint : topPoints) {
+	    		points.add(String.valueOf(topPoint));
+	    	}
+		} catch (Exception e) {
+			GameDialogFragment dlg = new GameDialogFragment(this);
+	        dlg.setTextButton1("Ok");
+	        dlg.setDialogType(GameDialogFragment.DIALOG_NO_INTERNET_ACCESS);
+	        dlg.setMessage("Check your Internet connection");
+	        dlg.show(getFragmentManager(), "dlg");
+		}
     }
     
     private void justifyListViewHeightBasedOnChildren (ListView listView) {

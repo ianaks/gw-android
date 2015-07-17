@@ -8,5 +8,9 @@
     <string name="action_settings">Settings</string>
     <string name="rank">Rank</string>
     <string name="points">Points</string>
+    <string name="plus1heart">+ 1 heart</string>
+    <string name="watchAd">Watch ad</string>
+    <string name="rateApp">Rate app</string>
+    <string name="shareInFacebook">Share in facebook</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.guesswhat.android.view;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,11 +22,19 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
   private String textButton2;
   private String message;
   private int dialogType;
+  private Activity activity;
   
   public static final int DIALOG_TYPE_EXIT = 0;
   public static final int DIALOG_TYPE_SCORE = 1;
   public static final int DIALOG_TYPE_GAME_EXIT = 2;
+  public static final int DIALOG_NO_INTERNET_ACCESS = 3;
 
+  public GameDialogFragment() {}
+  
+  public GameDialogFragment(Activity activity) {
+	  this.activity = activity;
+  }
+  
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {		    
 	    View v = inflater.inflate(R.layout.fragment_dialog, container);
@@ -38,9 +47,14 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
 	    button1.setOnClickListener(this);
 	    button1.setText(textButton1);
 	    button1.setTextSize(SystemProperties.FONT_SIZE);
-	    button2.setText(textButton2);
-	    button2.setTextSize(SystemProperties.FONT_SIZE);
-	    button2.setOnClickListener(this);
+	    if (textButton2 != null) {
+	    	button2.setVisibility(View.VISIBLE);
+		    button2.setText(textButton2);
+		    button2.setTextSize(SystemProperties.FONT_SIZE);
+		    button2.setOnClickListener(this);
+	    } else {
+	    	button2.setVisibility(View.GONE);
+	    }
 	    messageTxt.setText(message);
 	    messageTxt.setTextSize(SystemProperties.FONT_SIZE);
 	    
@@ -56,14 +70,14 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
 	public void onClick(View v) {
 		if(dialogType==DIALOG_TYPE_EXIT){
 			switch(v.getId()) {
-	    	case R.id.button1:
-	    		GameDialogFragment.this.getActivity().finish();
-	        	break;
-	    	case R.id.button2:
-	    		getDialog().cancel();	    		
-	        	break;
-	        default:
-	        	break;
+		    	case R.id.button1:
+		    		GameDialogFragment.this.getActivity().finish();
+		        	break;
+		    	case R.id.button2:
+		    		getDialog().cancel();	    		
+		        	break;
+		        default:
+		        	break;
 			}
 		} else if(dialogType==DIALOG_TYPE_SCORE){
 			GameDialogFragment.this.getActivity().finish();
@@ -73,15 +87,18 @@ public class GameDialogFragment extends DialogFragment implements OnClickListene
 			}
 		} else if(dialogType==DIALOG_TYPE_GAME_EXIT){
 			switch(v.getId()) {
-	    	case R.id.button1:
-	    		GameDialogFragment.this.getActivity().finish();
-	        	break;
-	    	case R.id.button2:
-	    		getDialog().cancel();
-	            break;
-	        default:
-	        	break;
+		    	case R.id.button1:
+		    		GameDialogFragment.this.getActivity().finish();
+		        	break;
+		    	case R.id.button2:
+		    		getDialog().cancel();
+		            break;
+		        default:
+		        	break;
 			}
+		} else if(dialogType == DIALOG_NO_INTERNET_ACCESS){
+			getDialog().cancel();
+			activity.finish();
 		}			
 		
 	}
