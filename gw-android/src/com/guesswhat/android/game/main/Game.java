@@ -8,6 +8,7 @@ import com.guesswhat.android.game.utils.HeartsController;
 import com.guesswhat.android.game.utils.ImageDownloadProgress;
 import com.guesswhat.android.game.utils.PointsCalculator;
 import com.guesswhat.android.game.utils.QuestionsGenerator;
+import com.guesswhat.android.service.cfg.AsyncTaskServiceRegister;
 import com.guesswhat.android.service.cfg.ServiceFactory;
 import com.guesswhat.android.service.rs.dto.QuestionDTO;
 import com.guesswhat.android.service.rs.dto.RecordDTO;
@@ -32,7 +33,7 @@ public class Game {
 	
 	public static Game getInstance() {
 		if (instance == null) {
-			instance = new Game();
+			instance = AsyncTaskServiceRegister.proxify(new Game());
 		}
 		return instance;
 	}
